@@ -1,0 +1,143 @@
+/*******************************************
+ * Template AllCred
+ *
+ * Cores: azul         - #171d4c
+ *        azul escuro  - #090d29
+ *        verde        - #1bb852
+ *        verde escuro - #118239
+ *        bege         - #e6cf9c
+ *        cinza        - #444444
+ *
+ * Medidas
+ *******************************************/
+html, body { font-family: 'Roboto Condensed', sans-serif; font-weight: 400; background: #eee; color:#444; }
+.container { width: 1240px; margin: 0 auto; }
+.content { width: 990px; float: left; }
+h1, h2, h3, h4, h5, h6 { font-family: 'Roboto Condensed', sansserif; font-weight: 700; color: #171d4c; }
+h1 { font-size: 60px; }
+h3 { font-size: 24px; }
+a { color: #171d4c; }
+a:hover, a:focus { color: #1bb852; }
+strong { color: #171d4c; }
+
+/* Sidebar do site ---------- */
+aside { width: 250px; float: left; }
+	header { background: #171d4c url('../images/bg-header.png'); }
+		#logo { background: url('../images/logo.png') no-repeat center 20px; width:250px; height:250px; padding: 192px 0 0; }
+		#logo .toggle-topbar { display: none }
+		#contact-phone { font-family: 'Roboto', sans-serif; font-weight: 700; color: #1bb852; font-size: 25px; text-align: center; }
+		/* Menu */
+		#mainmenu { filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#4d000000,endColorstr=#4d000000); min-height: 250px;	margin-top: 30px; }
+			#mainmenu:before { content: ''; width: 0; height: 0; border-top: 35px solid transparent; border-left: 125px solid rgba(0,0,0,0.3); border-right: 125px solid rgba(0,0,0,0.3); border-bottom: 0 solid transparent; position: absolute; top: 245px; }
+			#mainmenu:after  { content: ''; width: 0; height: 0; border-top: 35px solid rgba(0,0,0,0.3); border-left: 125px solid transparent; border-right: 125px solid transparent; border-bottom: 0 solid transparent; position: absolute; }
+			#mainmenu ul { list-style: none; margin: 0; padding: 0; font-size: 20px; text-align: center; }
+			#mainmenu ul li { padding: 7px 0; }
+			#mainmenu ul li a { color: #fff; height: 45px; opacity: 0.6; }
+			#mainmenu ul li a:hover { opacity: 1; }
+			#mainmenu ul ul { filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#801bb852,endColorstr=#801bb852);background-image: url('../images/sub-menu-bar.png'); background-position: top center; background-repeat: no-repeat; padding-top: 12px; }
+			#mainmenu ul ul li a { font-size: 16px; transition: all 0.15s; }
+			#mainmenu ul ul li:hover { filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#33000000,endColorstr=#33000000); }
+			#mainmenu li.active ul { display: block; }
+		#social { padding-top: 45px; height: 100px; text-align: center; }
+		#social:after { content: ''; width: 0; height: 0; border-top: 35px solid transparent; border-left: 125px solid #eee; border-right: 125px solid #eee; border-bottom: 0 solid transparent; position: relative; top: 15px; }
+		#social a { width: 35px; height: 35px; background: url('../images/icon-facebook.png') 0 0 no-repeat; text-indent: -999px; overflow: hidden; display: block; margin: 0 auto; }
+		#social a:hover { background-position-y: -35px; }
+	#adbanner { margin: 35px 0; }
+	#partners h3 { font-size: 18px }
+/* Conteúdo ---------- */
+/* Slider */
+@keyframes slidy2 {
+	0% { left: 0%; }
+	45% { left: 0%; }
+	50% { left: -100%; }
+	95% { left: -100%; }  
+	100% { left: 0%; }
+}
+@-webkit-keyframes slidy2 {
+	0% { left: 0%; }
+	45% { left: 0%; }
+	50% { left: -100%; }
+	95% { left: -100%; }  
+	100% { left: 0%; }
+}
+@keyframes slidy3 {
+	0% { left: 0%; }
+	28% { left: 0%; }
+	33% { left: -100%; }
+	61% { left: -100%; }
+	66% { left: -200%; }
+	95% { left: -200%; }  
+	100% { left: 0%; }
+}
+@-webkit-keyframes slidy3 {
+	0% { left: 0%; }
+	28% { left: 0%; }
+	33% { left: -100%; }
+	61% { left: -100%; }
+	66% { left: -200%; }
+	95% { left: -200%; }  
+	100% { left: 0%; }
+}
+@keyframes slidy5 {
+	0% { left: 0%; }
+	20% { left: 0%; }
+	25% { left: -100%; }
+	45% { left: -100%; }
+	50% { left: -200%; }
+	70% { left: -200%; }
+	75% { left: -300%; }
+	95% { left: -300%; }
+	100% { left: 0%; }
+}
+@-webkit-keyframes slidy5 {
+	0% { left: 0%; }
+	20% { left: 0%; }
+	25% { left: -100%; }
+	45% { left: -100%; }
+	50% { left: -200%; }
+	70% { left: -200%; }
+	75% { left: -300%; }
+	95% { left: -300%; }
+	100% { left: -400%; }
+}
+#slider { width: 100%; max-width: 990px; overflow: hidden; }
+#slider figure { position: relative; width: 500%; margin: 0; padding: 0; font-size: 0; left: 0; text-align: left; /*animation: 30s slidy infinite; -webkit-animation: 30s slidy infinite;*/}
+figure#imagestrip img { width: 20%; height: auto; float: left; }
+
+/* Home */
+.about p { font-size: 21px; }
+.button { background: #1bb852 url(../images/bg-box.png); border-bottom: 2px solid #118239; text-transform: uppercase; padding: 10px 6px; font-family: 'Roboto', sans-serif; font-size: 14px;}
+
+
+.box { background: #e6cf9c url(../images/bg-box.png); border: 3px solid #171d4c; padding: 10px;}
+.box-header-1 { font-weight: 700; text-transform: uppercase; color: #171d4c; font-size: 18px; line-height: 28px}
+	.box-header-1 span { color: #1bb852; font-size: 36px; }
+
+.teaser { text-align: center; min-height:400px; }
+	.teaser p { font-family: 'Roboto', sans-serif; font-size: 14px }
+
+.meta { padding: 20px; }
+
+/* Proposal Form ---------- */
+.box-title h2 { font-size: 30px; text-transform: uppercase; line-height: 1.2 }
+.box-title h2>span { color: #1bb852; font-size: 38px; }
+
+/* Horizontal */
+.h-proposal { margin-top: 67px; }
+.h-proposal .box-title { background: #171d4c; position: absolute; top: 0; right: 30px; padding: 10px; width: 560px; }
+.h-proposal .box-title img { height: 80px; width: auto; }
+.h-proposal .box-title h2 { color: #fff; margin-top: 18px; }
+.h-proposal .simpleform-row:first-child { width: 100%; }
+.h-proposal .simpleform-row { width: 50%; display: inline-block; padding: 0 10px; }
+.h-proposal p.info { display: none; }
+
+/* Footer ---------- */
+footer .logo { border-top: 4px solid #1bb852; padding-top: 20px; margin-top: -20px; text-align: center; }
+footer h2 { font-size: 18px; font-family: 'Roboto', sans-serif}
+footer p, footer li { font-size: 13px; line-height: 1.4; }
+footer strong { color: #1bb852 }
+footer ul { list-style: none; margin: 0; padding: 0 }
+footer .fifty { width: 50% }
+footer .big-phone { font-size: 44px; color: #1bb852; }
+footer .center { text-align: center; }
+footer a { color: #1bb852;}

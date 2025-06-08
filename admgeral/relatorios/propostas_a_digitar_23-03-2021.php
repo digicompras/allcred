@@ -1,0 +1,2174 @@
+<?php
+session_start(); //inicia sessÃƒÂ£o...
+if ($_SESSION["usuario"] == true) //verifica se a variÃƒÂ¡vel "usuario" ÃƒÂ© verdadeira...
+echo ""; //se for emite mensagem positiva.
+if ($_SESSION["senha"] == true) //verifica se a variÃƒÂ¡vel "senha" ÃƒÂ© verdadeira...
+echo ""; //se for emite mensagem positiva.
+else //se nÃƒÂ£o for...
+header("Location: alerta.php");
+ini_set('default_charset','UTF8_general_mysql500_ci');
+
+?>
+<html>
+<head>
+<title>LISTANDO TODAS AS PROPOSTAS PAGAS DO OPERADOR</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	background-color: #bababa;
+}
+.style3 {font-size: 10px}
+-->
+</style>
+</head>
+<?
+
+require '../../conect/conect.php';
+	
+	
+$sql = "select * from db";
+$res = mysql_query($sql);
+while($linha=mysql_fetch_row($res)) {
+
+$db = $linha[1];
+	
+}
+	
+	
+$sql2 = "select * from db";
+$res2 = mysql_query($sql2);
+while($linha=mysql_fetch_row($res2)) {
+
+$db = $linha[1];
+}
+	
+$usuario = $_SESSION['usuario'];
+
+$senha = $_SESSION['senha'];
+
+
+
+
+$sql = "SELECT * FROM admgeral where usuario = '$usuario' and senha = '$senha'";
+$res = mysql_query($sql);
+while($linha=mysql_fetch_row($res)) {
+
+
+$operadorqueabriu = $linha[1];
+
+
+}
+
+$sql5 = "SELECT * FROM cad_empresa limit 1";
+$res5 = mysql_query($sql5);
+while($linha=mysql_fetch_row($res5)) {
+
+
+$razaosocial_empresa = $linha[1];
+
+$nfantasia_empresa = $linha[2];
+
+$cnpj_empresa = $linha[3];
+$inscr_est_empresa = $linha[4];
+
+
+$endereco_empresa = $linha[5];
+
+$numero_empresa = $linha[6];
+
+$bairro_empresa = $linha[7];
+
+$cep_empresa = $linha[9];
+
+$cidade_empresa = $linha[10];
+
+$estado_empresa = $linha[11];
+
+$telefone_empresa = $linha[12];
+
+$fax_empresa = $linha[13];
+
+$email_empresa = $linha[14];
+
+$site_empresa = $linha[15];
+
+}
+
+
+//$num_proposta_atualizar = $_POST['num_proposta_atualizar'];
+$solicitacao = $_POST['solicitacao'];
+	  
+$nome_operador = $_POST['nome_operador'];
+$nome_operador_a_atribuir = $_POST['nome_operador_a_atribuir'];
+$mes_ano = $_POST['mes_ano'];
+$tipo_contrato = $_POST['tipo_contrato'];
+$digitacao = $_POST['digitacao'];
+$atribuicaoemmassa = $_POST['atribuicaoemmassa'];
+$margemcartao = $_POST['margemcartao'];
+	
+$margememprestimo = $_POST['margememprestimo'];
+	
+	
+	
+	
+
+	//if($tipo_contrato=="SITE"){
+
+//$status = "ATRIBUIDO";
+//$status = $_POST['status'];
+
+//}
+
+//else{
+
+$status = $_POST['status'];
+
+//}
+
+$dia_inicial = $_POST['dia_inicial'];
+$mes_inicial = $_POST['mes_inicial'];
+$ano_inicial = $_POST['ano_inicial'];
+
+$dia_final = $_POST['dia_final'];
+$mes_final = $_POST['mes_final'];
+$ano_final = $_POST['ano_final'];
+	
+	
+	?>
+	
+	
+	
+	<?
+
+$sql = "SELECT * FROM operadores where nome = '$nome_operador_a_atribuir'";
+
+$res = mysql_query($sql);
+
+while($linha=mysql_fetch_row($res)) {
+
+$nome_op_atribuir = $linha[1];
+
+$email_op_atribuir = $linha[20];
+
+$estabelecimento_atribuir = $linha[44];
+
+$cidade_estab_pertence = $linha[45];
+
+$tel_estab_pertence = $linha[46];
+
+$email_estab_pertence = $linha[47];
+
+}
+
+$sql = "SELECT * FROM estabelecimentos where nfantasia = '$estabelecimento_atribuir'";
+
+$res = mysql_query($sql);
+
+while($linha=mysql_fetch_row($res)) {
+
+$fax = $linha[13];
+
+}
+
+	?>
+
+	<?
+if($solicitacao=="atualizarstatus"){
+	
+//$sql = "SELECT * FROM mensagens_emails";
+//$res = mysql_query($sql);
+//while($linha=mysql_fetch_row($res)) {
+
+//$texto1 = $linha[1];
+//$texto2 = $linha[2];
+//}
+	
+$sql = "SELECT * FROM status where setor = 'CONSIGNADO' and status = '$status'";
+$res = mysql_query($sql);
+while($linha=mysql_fetch_row($res)) {
+
+$mensagem_do_email = $linha[4];
+
+}
+	
+	
+if($tipo_contrato=="SITE"){
+
+		
+	
+$checks = implode(",", $_POST["atribuicaoemmassa"]);
+
+echo "dados dos checkbox $checks <br/>";
+
+foreach($_POST["atribuicaoemmassa"] as $item => $conteudoatribuicao){
+	
+			
+$posicao = $item;
+	$proposta_atualizar = $conteudoatribuicao;
+
+	//echo "proposta_atualizar - $proposta_atualizar <br/>";
+	//echo "Item - $item <br/>";
+	$estahsetado = isset($proposta_atualizar);
+	//echo "Estado - $estahsetado<br/><br/>";
+	//echo "Margem cartao: ";
+	//echo $_POST["margemcartao$proposta_atualizar"];
+	$margem_do_cartao = $_POST["margemcartao$proposta_atualizar"];
+	//echo "<br/>Margem emprestimo:  ";
+	//echo $_POST["margememprestimo$proposta_atualizar"];
+	$margem_do_emprestimo = $_POST["margememprestimo$proposta_atualizar"];
+	//echo "<br/>";
+	
+	
+	$comando = "update `$db`.`propostas` set `nome_operador` = '$nome_operador_a_atribuir',`estabelecimento_proposta` = '$estabelecimento_atribuir',`digitacao` = '$digitacao',`status` = '$status',`margemcartao` = '$margem_do_cartao',`margememprestimo` = '$margem_do_emprestimo' where `propostas`. `num_proposta` = '$proposta_atualizar'";	
+     mysql_query($comando,$conexao);
+	
+	
+if($status=="REPROVADO"){
+
+$sql = "SELECT * FROM propostas where num_proposta = '$proposta_atualizar'";
+$res = mysql_query($sql);
+while($linha=mysql_fetch_row($res)) {
+
+$num_proposta = $linha[0];
+$tipo = $linha[2];
+$nome_cli = $linha[4];
+$email_cli = $linha[23];
+}
+
+
+	//EMAIL DO CLIENTE QUE VAI RECEBER O EMAIL
+
+	//$email_dest   =   $email_cli;
+	$email_dest   =   $email_cli;
+
+	//PREPARA O PEDIDO
+
+	$mens   =  "Olá $nome_cli! \n";
+	$mens  .=  "$mensagem_do_email \n";
+	
+
+
+
+$mens  .=  $to = "$email_cli";
+$from = "$email_empresa";
+$subject = "Olá $nome_cli! Sua proposta foi realizada na $nfantasia_empresa!";
+$html = "
+<html>
+<body>
+Olá $nome_cli! Sua proposta foi realizada na <b>$nfantasia_empresa<b>!<br><br>
+
+Nº de sua proposta: $proposta_atualizar<br>
+
+Para podermos dar andamento nela precisamos:<br><br>
+
+RG frente e verso<br>
+Comprovante de endereco<br>
+Comprovante de renda<br>
+Uma foto tipo selfie<br>
+
+$mensagem_do_email<br>
+</body>
+</html>";
+$headers = 'MIME-Version: 1.0' . "\r\n";
+$headers = "Content-type: text/html; charset=iso-8859-1\r\n";
+$headers .= "From: $from \r\n";
+
+if (mail($to, $subject, $html, $headers)) {
+echo "Email enviado com sucesso !";
+} else {
+echo "Ocorreu um erro durante o envio do email.";
+}
+
+}//fecha se status reprovado
+else{
+	
+	$sql3 = "SELECT * FROM propostas where num_proposta = '$proposta_atualizar'";
+$res3 = mysql_query($sql3);
+while($linha=mysql_fetch_row($res3)) {
+
+$nome_cli = $linha[4];
+$email_cli = $linha[23];
+
+}
+
+//PREPARA O PEDIDO
+
+	$mens   =  "Olá $nome_cli! \n";
+	$mens  .=  "$mensagem_do_email \n";
+
+
+$mens  .=  $to = "$email_cli";
+$from = "$email_op_atribuir";
+$subject = "Olá $nome_cli! $texto2";
+$html = "
+<html>
+<body>
+Olá $nome_cli! $mensagem_do_email<b>!<br><br>
+
+Nº de sua proposta: $proposta_atualizar<br>
+Operador(a) que lhe irá atender: $nome_op_atribuir<br><br>
+
+Para podermos dar andamento nela precisamos:<br><br>
+
+RG frente e verso<br>
+Comprovante de endereco<br>
+Comprovante de renda<br>
+Uma foto tipo selfie<br>
+
+Caso prefira, fique a vontade em ligar para a pessoa que lhe irá atender!<br>
+Agencia: $estabelecimento_atribuir<br>
+Cidade: $cidade_estab_pertence<br>
+Telefone: $tel_estab_pertence<br>
+Celular: $fax<br>
+</body>
+</html>";
+$headers = 'MIME-Version: 1.0' . "\r\n";
+$headers = "Content-type: text/html; charset=iso-8859-1\r\n";
+$headers .= "From: $from \r\n";
+
+if (@mail($to, $subject, $html, $headers)) {
+echo "Email enviado com sucesso para $email_cli!";
+} else {
+echo "Ocorreu um erro durante o envio do email para $email_cli.";
+}
+	
+	//DISPARA O EMAIL PARA O OPERADOR
+	
+	//PREPARA O PEDIDO
+
+	$mens   =  "Olá $nome_cli! \n";
+	$mens  .=  "$mensagem_do_email \n";
+	
+$mens  .=  $to = "$email_op_atribuir";
+$from = "$email_op_atribuir";
+$subject = "Olá $nome_cli! $texto2";
+$html = "
+<html>
+<body>
+Olá $nome_cli! $mensagem_do_email<b>!<br><br>
+
+Nº de sua proposta: $proposta_atualizar<br>
+Operador(a) que lhe irá atender: $nome_op_atribuir<br><br>
+
+Para podermos dar andamento nela precisamos:<br><br>
+
+RG frente e verso<br>
+Comprovante de endereco<br>
+Comprovante de renda<br>
+Uma foto tipo selfie<br>
+
+Caso prefira, fique a vontade em ligar para a pessoa que lhe irá atender!<br>
+Agencia: $estabelecimento_atribuir<br>
+Cidade: $cidade_estab_pertence<br>
+Telefone: $tel_estab_pertence<br>
+Celular: $fax<br>
+</body>
+</html>";
+$headers = 'MIME-Version: 1.0' . "\r\n";
+$headers = "Content-type: text/html; charset=iso-8859-1\r\n";
+$headers .= "From: $from \r\n";
+
+if (@mail($to, $subject, $html, $headers)) {
+echo "Email enviado com sucesso para $email_op_atribuir!";
+} else {
+echo "Ocorreu um erro durante o envio do email para $email_op_atribuir.";
+}
+
+
+
+$sql = "SELECT * FROM atribuicao_de_propostas where num_proposta_atribuida = '$proposta_atualizar'";
+$res = mysql_query($sql);
+$registros_atribuicoes = mysql_num_rows($res);
+
+if($registros_atribuicoes>="1"){
+
+}
+else{
+
+$date = date('Y-m-d');
+
+$comando = "insert into atribuicao_de_propostas(date,num_proposta_atribuida,operador_atribuido,margemcartao,margememprestimo) values('$date','$proposta_atualizar','$nome_op_atribuir','$margemcartao','$margememprestimo')";
+
+
+mysql_query($comando,$conexao);
+
+
+
+}
+	
+	
+}//aqui encerra se status for <> de REPROVADO	
+	
+	
+	
+}// fecha o foreach
+
+}//fecha se tipo contrato SITE
+else{//aqui começa a condição se nao for contrato tipo SITE
+	
+//$sql = "SELECT * FROM mensagens_emails";
+//$res = mysql_query($sql);
+//while($linha=mysql_fetch_row($res)) {
+
+//$texto1 = $linha[1];
+//$texto2 = $linha[2];
+//}
+	
+$sql = "SELECT * FROM status where setor = 'CONSIGNADO' and status = '$status'";
+$res = mysql_query($sql);
+while($linha=mysql_fetch_row($res)) {
+
+$mensagem_do_email = $linha[4];
+
+}
+	
+	$checks = implode(",", $_POST["atribuicaoemmassa"]);
+
+echo "dados dos checkbox $checks <br/>";
+
+foreach($_POST["atribuicaoemmassa"] as $item => $conteudoatribuicao){
+	
+			
+$posicao = $item;
+	$proposta_atualizar = $conteudoatribuicao;
+
+	//echo "proposta_atualizar - $proposta_atualizar <br/>";
+	//echo "Item - $item <br/>";
+	$estahsetado = isset($proposta_atualizar);
+	//echo "Estado - $estahsetado<br/><br/>";
+	//echo "Margem cartao: ";
+	//echo $_POST["margemcartao$proposta_atualizar"];
+	$margem_do_cartao = $_POST["margemcartao$proposta_atualizar"];
+	//echo "<br/>Margem emprestimo:  ";
+	//echo $_POST["margememprestimo$proposta_atualizar"];
+	$margem_do_emprestimo = $_POST["margememprestimo$proposta_atualizar"];
+	//echo "<br/>";
+	
+	$comando = "update `$db`.`propostas` set `nome_operador` = '$nome_operador_a_atribuir',`estabelecimento_proposta` = '$estabelecimento_atribuir',`status` = '$status',`margemcartao` = '$margem_do_cartao',`margememprestimo` = '$margem_do_emprestimo' where `propostas`. `num_proposta` = '$proposta_atualizar'";	
+     mysql_query($comando,$conexao);
+	
+	
+if($status=="REPROVADO"){
+
+$sql = "SELECT * FROM propostas where num_proposta = '$proposta_atualizar'";
+$res = mysql_query($sql);
+while($linha=mysql_fetch_row($res)) {
+
+$num_proposta = $linha[0];
+$tipo = $linha[2];
+$nome_cli = $linha[4];
+$email_cli = $linha[23];
+}
+
+
+	//EMAIL DO CLIENTE QUE VAI RECEBER O EMAIL
+
+	//$email_dest   =   $email_cli;
+	$email_dest   =   $email_cli;
+
+	//PREPARA O PEDIDO
+
+	$mens   =  "Olá $nome_cli! \n";
+	$mens  .=  "$mensagem_do_email \n";
+	
+
+
+
+$mens  .=  $to = "$email_cli";
+$from = "$email_empresa";
+$subject = "Olá $nome_cli! Temos opções para você na $nfantasia_empresa!";
+$html = "
+<html>
+<body>
+Olá $nome_cli! Temos opções para você na <b>$nfantasia_empresa<b>!<br><br>
+
+Nº de sua proposta: $proposta_atualizar<br>
+
+$mensagem_do_email<br>
+</body>
+</html>";
+$headers = 'MIME-Version: 1.0' . "\r\n";
+$headers = "Content-type: text/html; charset=iso-8859-1\r\n";
+$headers .= "From: $from \r\n";
+
+if (mail($to, $subject, $html, $headers)) {
+echo "Email enviado com sucesso !";
+} else {
+echo "Ocorreu um erro durante o envio do email.";
+}
+
+}//fecha se status reprovado
+else{
+	
+
+	
+	$sql3 = "SELECT * FROM propostas where num_proposta = '$proposta_atualizar'";
+$res3 = mysql_query($sql3);
+while($linha=mysql_fetch_row($res3)) {
+
+$nome_cli = $linha[4];
+$email_cli = $linha[23];
+
+}
+
+//PREPARA O PEDIDO
+
+	$mens   =  "Olá $nome_cli! \n";
+	$mens  .=  "$mensagem_do_email \n";
+
+
+$mens  .=  $to = "$email_cli";
+$from = "$email_op_atribuir";
+$subject = "Olá $nome_cli! $texto2";
+$html = "
+<html>
+<body>
+Olá $nome_cli! $mensagem_do_email<b>!<br><br>
+
+Nº de sua proposta: $proposta_atualizar<br>
+Operador(a) que lhe irá atender: $nome_op_atribuir<br><br>
+
+Caso prefira, fique a vontade em ligar para a pessoa que lhe irá atender!<br>
+Agencia: $estabelecimento_atribuir<br>
+Cidade: $cidade_estab_pertence<br>
+Telefone: $tel_estab_pertence<br>
+Celular: $fax<br>
+</body>
+</html>";
+$headers = 'MIME-Version: 1.0' . "\r\n";
+$headers = "Content-type: text/html; charset=iso-8859-1\r\n";
+$headers .= "From: $from \r\n";
+
+if (@mail($to, $subject, $html, $headers)) {
+echo "Email enviado com sucesso para $email_cli!";
+} else {
+echo "Ocorreu um erro durante o envio do email para $email_cli.";
+}
+	
+	//DISPARA O EMAIL PARA O OPERADOR
+	
+$mens  .=  $to = "$email_op_atribuir";
+$from = "$email_op_atribuir";
+$subject = "Olá $nome_cli! $texto2";
+$html = "
+<html>
+<body>
+Olá $nome_cli!$mensagem_do_email<br><br>
+
+Nº de sua proposta: $proposta_atualizar<br>
+Operador(a) que lhe irá atender: $nome_op_atribuir<br><br>
+
+Caso prefira, fique a vontade em ligar para a pessoa que lhe irá atender!<br>
+Agencia: $estabelecimento_atribuir<br>
+Cidade: $cidade_estab_pertence<br>
+Telefone: $tel_estab_pertence<br>
+Celular: $fax<br>
+</body>
+</html>";
+$headers = 'MIME-Version: 1.0' . "\r\n";
+$headers = "Content-type: text/html; charset=iso-8859-1\r\n";
+$headers .= "From: $from \r\n";
+
+if (@mail($to, $subject, $html, $headers)) {
+echo "Email enviado com sucesso para $email_op_atribuir!";
+} else {
+echo "Ocorreu um erro durante o envio do email para $email_op_atribuir.";
+}
+
+
+
+$sql = "SELECT * FROM atribuicao_de_propostas where num_proposta_atribuida = '$proposta_atualizar'";
+$res = mysql_query($sql);
+$registros_atribuicoes = mysql_num_rows($res);
+
+if($registros_atribuicoes>="1"){
+
+}
+else{
+
+$date = date('Y-m-d');
+
+$comando = "insert into atribuicao_de_propostas(date,num_proposta_atribuida,operador_atribuido,margemcartao,margememprestimo) values('$date','$proposta_atualizar','$nome_op_atribuir','$margemcartao','$margememprestimo')";
+
+
+mysql_query($comando,$conexao);
+
+
+
+}
+	
+	
+}//aqui encerra se status for <> de REPROVADO
+	
+}//fecha foreach
+	
+}//fecha condição se nao for tipo_contrato = SITE
+
+
+}//fecha se a condição de atualizarstatus
+	
+	
+	
+if($solicitacao=="responderanalisedeproposta"){
+	
+	
+	
+$num_proposta = $_POST['num_proposta'];
+
+$nome_operador = $_POST['nome_operador'];
+
+$status = $_POST['status'];
+	
+	
+$sql3 = "SELECT * FROM propostas where num_proposta = '$num_proposta'";
+$res3 = mysql_query($sql3);
+while($linha=mysql_fetch_row($res3)) {
+
+
+$nome_cli = $linha[4];
+$email_cli = $linha[23];
+$operador = $linha[32];
+
+$cel_operador = $linha[33];
+
+$email_operador = $linha[34];
+$estabelecimento_proposta = $linha[35];
+$cidade_estabelecimento = $linha[36];
+
+
+}
+	
+	
+$sql = "SELECT * FROM status where status = '$status' and setor = 'CONSIGNADO' limit 1";
+$res = mysql_query($sql);
+while($linha=mysql_fetch_row($res)) {
+
+
+$mensagem_envio_email_ao_cliente = $linha[4];
+$mensagem_do_email = $linha[4];
+
+}
+	
+
+$mes_ano_status = $_POST['mes_ano_status'];
+
+$retorno = $_POST['retorno'];
+
+$bco_operacao = $_POST['bco_operacao'];
+
+$valor_credito = $_POST['valor_credito'];
+
+$tabela = $_POST['tabela'];
+
+$dataalteracao = $_POST['dataalteracao'];
+
+$horaalteracao = $_POST['horaalteracao'];
+
+$valor_liberado = $_POST['valor_liberado'];
+
+$quant_parc = $_POST['quant_parc'];
+
+$recebido = $_POST['recebido'];
+
+$parcela = $_POST['parcela'];
+
+$obs2 = $_POST['obs2'];
+
+$cpf = $_POST['cpf'];
+
+$campanha = $_POST['campanha'];
+
+$valor_total = $_POST['valor_total'];
+
+$valor_liquido_cliente = $_POST['valor_liquido_cliente'];
+
+
+$num_contrato_bco = $_POST['num_contrato_bco'];
+
+$dia_vencto = $_POST['dia_parc'];
+
+$dia_parc = $_POST['dia_parc'];
+
+$mes_parc = $_POST['mes_parc'];
+
+$ano_parc = $_POST['ano_parc'];
+
+$iniciocontrato = "$ano_parc-$mes_parc-$dia_parc";
+
+$percentual_entrada = $_POST['percentual_entrada'];
+
+
+
+$percentual_comissao_avista = $_POST['percentual_comissao_avista'];
+
+$percentual_comissao_avista_decimal = bcdiv($percentual_comissao_avista,100,5);
+
+$valor_a_receber = $_POST['valor_a_receber'];
+
+
+$percentual_comissao_diferido = $_POST['percentual_comissao_diferido'];
+
+$percentual_comissao_diferido_decimal = bcdiv($percentual_comissao_diferido,100,5);
+
+$valor_a_receber_diferido = $_POST['valor_a_receber_diferido'];
+
+if((empty($percentual_comissao_diferido)) or (empty($percentual_comissao_diferido_decimal))){
+	
+$diferido = "Nao";
+	
+}
+else{
+	
+$diferido = "Sim";
+	
+}
+
+
+
+$percentual_op = $_POST['percentual_op'];
+
+$percentual_op_decimal = bcdiv($percentual_op,100,5);
+
+$comissao_op = $_POST['comissao_op'];
+
+
+$vinculo = $_POST['vinculo'];
+
+$vinculo_anterior = $_POST['vinculo_anterior'];
+
+
+//---------CALCULO DA META-----------------------
+
+
+$sql = "SELECT * FROM operadores where nome = '$nome_operador' limit 1";
+$res = mysql_query($sql);
+while($linha=mysql_fetch_row($res)) {
+
+
+$meta_mensal = $linha[55];
+$funcao = $linha[43];
+
+
+}
+
+if($funcao=="Adm Suporte"){
+	
+$funcao_a_gravar = $funcao;
+	
+$sub_calculo_meta = bcdiv($parcela,$meta_mensal,5);
+$meta = bcadd($sub_calculo_meta,0,2);
+	
+}
+else{
+	
+$funcao_a_gravar = "";
+
+	
+$sub_calculo_meta = bcdiv($valor_a_receber,$meta_mensal,5);
+$meta = bcadd($sub_calculo_meta,0,2);
+
+}
+
+
+
+
+//---------FIM DO CALCULO DA META-------------------
+
+
+$dia_alteracao_status = $_POST['dia_alteracao_status'];
+
+$mes_alteracao_status = $_POST['mes_alteracao_status'];
+
+$ano_alteracao_status = $_POST['ano_alteracao_status'];
+
+
+
+$data_alteracao = "$ano_alteracao_status-$mes_alteracao_status-$dia_alteracao_status";
+
+
+//dados do operador que alterou
+
+
+
+
+
+$operador_alterou = $_POST['operador_alterou'];
+
+$cel_operador_alterou = $_POST['cel_operador_alterou'];
+
+$email_operador_alterou = $_POST['email_operador_alterou'];
+
+
+
+//dados do estabelecimento que alterou
+
+
+
+$estabelecimento_alterou = $_POST['estabelecimento_alterou'];
+
+$cidade_estabelecimento_alterou = $_POST['cidade_estabelecimento_alterou'];
+
+$tel_estabelecimento_alterou = $_POST['tel_estabelecimento_alterou'];
+
+$email_estabelecimento_alterou = $_POST['email_estabelecimento_alterou'];
+
+
+	//--------------------------------------------
+
+
+$comando = "update `$db`.`propostas` set `num_proposta` = '$num_proposta',`status` = '$status',`mes_ano_status` = '$mes_ano_status',`retorno` = '$retorno',`dataalteracao` = '$dataalteracao',`horaalteracao` = '$horaalteracao',`campanha` = '$campanha',`operador_alterou` = '$operador_admgeral',`cel_operador_alterou` = '$cel_operador_alterou',`valor_liberado` = '$valor_liberado',`valor_total` = '$valor_total',`valor_liquido_cliente` = '$valor_liquido_cliente',
+
+`email_operador_alterou` = '$email_operador_alterou',`estabelecimento_alterou` = '$estabelecimento_alterou',`cidade_estabelecimento_alterou` = '$cidade_estabelecimento_alterou',`tel_estabelecimento_alterou` = '$tel_estabelecimento_alterou',`email_estabelecimento_alterou` = '$email_estabelecimento_alterou',`valor_credito`= '$valor_credito',`bco_operacao`= '$bco_operacao',`valor_a_receber`= '$valor_a_receber',`recebido`= '$recebido',`parcela`= '$parcela',`parc1`= '$parcela',`percentual_op`= '$percentual_op',`percentual_op_decimal`= '$percentual_op_decimal',`comissao_op`= '$comissao_op',`obs2`= '$obs2',`dia_alteracao_status` = '$dia_alteracao_status',`mes_alteracao_status` = '$mes_alteracao_status',`ano_alteracao_status` = '$ano_alteracao_status',`meta` = '$meta',`data_alteracao` = '$data_alteracao',`tabela` = '$tabela',`funcao` = '$funcao_a_gravar',`num_contrato_bco` = '$num_contrato_bco' ,`quant_parc` = '$quant_parc',`dia_parc` = '$dia_parc',`mes_parc` = '$mes_parc',`ano_parc` = '$ano_parc',`iniciocontrato` = '$iniciocontrato',`venctocontrato` = '$venctocontrato',`dia_vencto_contrato` = '$dia_vencto_contrato',`mes_vencto_contrato` = '$mes_vencto_contrato',`ano_vencto_contrato` = '$ano_vencto_contrato',`percentual_comissao_avista` = '$percentual_comissao_avista',`percentual_comissao_avista_decimal` = '$percentual_comissao_avista_decimal',`diferido` = '$diferido',`percentual_comissao_diferido` = '$percentual_comissao_diferido',`percentual_comissao_diferido_decimal` = '$percentual_comissao_diferido_decimal',`valor_a_receber_diferido` = '$valor_a_receber_diferido',`vinculo` = '$vinculo',`vinculo_anterior` = '$vinculo_anterior' where `propostas`. `num_proposta` = '$num_proposta' limit 1 ";
+mysql_query($comando,$conexao) or die("Erro ao alterar informacoes desse cadastro");
+
+
+
+$comando = "insert into observacoes_parecer_credito(num_proposta,cpf,data,hora,obs,operador) values('$num_proposta','$cpf','$dataalteracao','$horaalteracao','$obs2','$operador_admgeral')";
+mysql_query($comando,$conexao);
+
+
+
+
+
+if($status=="PAGO AO CLIENTE"){
+
+
+// dados da proposta
+
+$data_pagto_cliente = $_POST['data_pagto_cliente'];
+
+$hora_pagto_cliente = $_POST['hora_pagto_cliente'];
+
+$status_pagto_cliente = "Pago_ao_cliente";
+
+
+// a funcao explode usada para separar uma string em
+
+
+$dataalteracao_pagto_cliente = $data_pagto_cliente;
+
+$dataalteracao_pagto_cliente2 = explode("-", $dataalteracao_pagto_cliente);
+
+
+
+$dia_pagto_cliente = $dataalteracao_pagto_cliente2[0];
+
+$mes_pagto_cliente = $dataalteracao_pagto_cliente2[1];
+
+$ano_pagto_cliente = $dataalteracao_pagto_cliente2[2];
+
+
+
+
+
+
+
+$comando = "update `$db`.`propostas` set `num_proposta` = '$num_proposta',`status_pagto_cliente` = '$status_pagto_cliente',
+
+`data_pagto_cliente` = '$data_pagto_cliente',`hora_pagto_cliente` = '$hora_pagto_cliente',
+
+`operador_alterou` = '$operador_admgeral',`cel_operador_alterou` = '$cel_operador_alterou',
+
+`email_operador_alterou` = '$email_operador_alterou',`estabelecimento_alterou` = '$estabelecimento_alterou',
+
+`cidade_estabelecimento_alterou` = '$cidade_estabelecimento_alterou',
+
+`tel_estabelecimento_alterou` = '$tel_estabelecimento_alterou',
+
+`email_estabelecimento_alterou` = '$email_estabelecimento_alterou',`dia_pagto_cliente` = '$dia_pagto_cliente',`mes_pagto_cliente` = '$mes_pagto_cliente',`ano_pagto_cliente` = '$ano_pagto_cliente',`tabela` = '$tabela',`funcao` = '$funcao_a_gravar' where `propostas`. `num_proposta` = '$num_proposta' limit 1 ";
+mysql_query($comando,$conexao);
+	
+}
+	
+	
+
+if($status<>"PAGO AO CLIENTE"){
+
+$status_pagto_cliente = "";
+
+}
+
+
+if($status_pagto_cliente=="Pago_ao_Cliente"){
+
+$comando = "insert into cx_saidas(datacadastro,horacadastro,num_proposta,nome_operador,estabelecimento_proposta,nome,cpf,valor,operador,cel_operador,email_operador,estabelecimento,cidade_estabelecimento,tel_estabelecimento,email_estabelecimento,mes,ano) 
+
+values('$datacadastro','$horacadastro','$num_proposta','$nome_operador','$estabelecimento_proposta','$nome','$cpf','$valor','$operador','$cel_operador','$email_operador','$estabelecimento','$cidade_estabelecimento','$tel_estabelecimento','$email_estabelecimento','$mes','$ano')";
+mysql_query($comando,$conexao);
+
+}
+
+
+
+
+if($status=="PAGO AO CORRESPONDENTE"){
+
+
+// dados da proposta
+
+$data_pagto_cliente = $_POST['data_pagto_cliente'];
+
+$hora_pagto_cliente = $_POST['hora_pagto_cliente'];
+
+$status_pagto_cliente = "Pago_ao_correspondente";
+
+
+// a funcao explode usada para separar uma string em
+
+
+$dataalteracao_pagto_cliente = $data_pagto_cliente;
+
+$dataalteracao_pagto_cliente2 = explode("-", $dataalteracao_pagto_cliente);
+
+
+
+$dia_pagto_cliente = $dataalteracao_pagto_cliente2[0];
+
+$mes_pagto_cliente = $dataalteracao_pagto_cliente2[1];
+
+$ano_pagto_cliente = $dataalteracao_pagto_cliente2[2];
+
+
+
+
+
+
+$comando = "update `$db`.`propostas` set `num_proposta` = '$num_proposta',`status_pagto_cliente` = '$status_pagto_cliente',
+
+`data_pagto_cliente` = '$data_pagto_cliente',`hora_pagto_cliente` = '$hora_pagto_cliente',
+
+`operador_alterou` = '$operador_admgeral',`cel_operador_alterou` = '$cel_operador_alterou',
+
+`email_operador_alterou` = '$email_operador_alterou',`estabelecimento_alterou` = '$estabelecimento_alterou',
+
+`cidade_estabelecimento_alterou` = '$cidade_estabelecimento_alterou',
+
+`tel_estabelecimento_alterou` = '$tel_estabelecimento_alterou',
+
+`email_estabelecimento_alterou` = '$email_estabelecimento_alterou',`dia_pagto_cliente` = '$dia_pagto_cliente',`mes_pagto_cliente` = '$mes_pagto_cliente',`ano_pagto_cliente` = '$ano_pagto_cliente',`tabela` = '$tabela',`funcao` = '$funcao_a_gravar' where `propostas`. `num_proposta` = '$num_proposta' limit 1 ";
+mysql_query($comando,$conexao);
+	
+}
+	
+	
+
+if($status_pagto_cliente=="Pago_ao_correspondente"){
+
+$comando = "insert into cx_saidas(datacadastro,horacadastro,num_proposta,nome_operador,estabelecimento_proposta,nome,cpf,valor,operador,cel_operador,email_operador,estabelecimento,cidade_estabelecimento,tel_estabelecimento,email_estabelecimento,mes,ano) 
+
+values('$datacadastro','$horacadastro','$num_proposta','$nome_operador','$estabelecimento_proposta','$nome','$cpf','$valor','$operador','$cel_operador','$email_operador','$estabelecimento','$cidade_estabelecimento','$tel_estabelecimento','$email_estabelecimento','$mes','$ano')";
+mysql_query($comando,$conexao);
+
+}
+
+
+
+//-----------------------------------------------------------------------------------//
+	
+	
+	
+	
+	
+$valorliberado1 = $_POST['valorliberado1'];
+	
+$bancodigitacao1 = $_POST['bancodigitacao1'];
+
+$tipooperacao1 = $_POST['tipooperacao1'];
+	
+$linha1 = $_POST['linha1'];
+	
+	
+$comando = "update `$db`.`propostasanaliseportabilidade` set `valorliberado1` = '$valorliberado1',`bancodigitacao1` = '$bancodigitacao1',`tipooperacao1` = '$tipooperacao1' where `propostasanaliseportabilidade`. `num_proposta` = '$num_proposta' and `linha` = '$linha1' limit 1 ";
+mysql_query($comando,$conexao);
+	
+	
+	
+$valorliberado2 = $_POST['valorliberado2'];
+	
+$bancodigitacao2 = $_POST['bancodigitacao2'];
+
+$tipooperacao2 = $_POST['tipooperacao2'];
+	
+$linha2 = $_POST['linha2'];
+	
+	
+$comando = "update `$db`.`propostasanaliseportabilidade` set `valorliberado1` = '$valorliberado2',`bancodigitacao1` = '$bancodigitacao2',`tipooperacao1` = '$tipooperacao2' where `propostasanaliseportabilidade`. `num_proposta` = '$num_proposta' and `linha` = '$linha2' limit 1 ";
+mysql_query($comando,$conexao);
+	
+	
+
+$valorliberado3 = $_POST['valorliberado3'];
+	
+$bancodigitacao3 = $_POST['bancodigitacao3'];
+
+$tipooperacao3 = $_POST['tipooperacao3'];
+	
+$linha3 = $_POST['linha3'];
+	
+	
+$comando = "update `$db`.`propostasanaliseportabilidade` set `valorliberado1` = '$valorliberado3',`bancodigitacao1` = '$bancodigitacao3',`tipooperacao1` = '$tipooperacao3' where `propostasanaliseportabilidade`. `num_proposta` = '$num_proposta' and `linha` = '$linha3' limit 1 ";
+mysql_query($comando,$conexao);
+	
+	
+	
+$valorliberado4 = $_POST['valorliberado4'];
+	
+$bancodigitacao4 = $_POST['bancodigitacao4'];
+
+$tipooperacao4 = $_POST['tipooperacao4'];
+	
+$linha4 = $_POST['linha4'];
+	
+	
+$comando = "update `$db`.`propostasanaliseportabilidade` set `valorliberado1` = '$valorliberado4',`bancodigitacao1` = '$bancodigitacao4',`tipooperacao1` = '$tipooperacao4' where `propostasanaliseportabilidade`. `num_proposta` = '$num_proposta' and `linha` = '$linha4' limit 1 ";
+mysql_query($comando,$conexao);
+	
+	
+$valorliberado5 = $_POST['valorliberado5'];
+	
+$bancodigitacao5 = $_POST['bancodigitacao5'];
+
+$tipooperacao5 = $_POST['tipooperacao5'];
+	
+$linha5 = $_POST['linha5'];
+	
+	
+$comando = "update `$db`.`propostasanaliseportabilidade` set `valorliberado1` = '$valorliberado5',`bancodigitacao1` = '$bancodigitacao5',`tipooperacao1` = '$tipooperacao5' where `propostasanaliseportabilidade`. `num_proposta` = '$num_proposta' and `linha` = '$linha5' limit 1 ";
+mysql_query($comando,$conexao);
+	
+	
+	
+$valorliberado6 = $_POST['valorliberado6'];
+	
+$bancodigitacao6 = $_POST['bancodigitacao6'];
+
+$tipooperacao6 = $_POST['tipooperacao6'];
+	
+$linha6 = $_POST['linha6'];
+	
+	
+$comando = "update `$db`.`propostasanaliseportabilidade` set `valorliberado1` = '$valorliberado6',`bancodigitacao1` = '$bancodigitacao6',`tipooperacao1` = '$tipooperacao6' where `propostasanaliseportabilidade`. `num_proposta` = '$num_proposta' and `linha` = '$linha6' limit 1 ";
+mysql_query($comando,$conexao);
+	
+	
+	
+	
+$valorliberado7 = $_POST['valorliberado7'];
+	
+$bancodigitacao7 = $_POST['bancodigitacao7'];
+
+$tipooperacao7 = $_POST['tipooperacao7'];
+	
+$linha7 = $_POST['linha7'];
+	
+	
+$comando = "update `$db`.`propostasanaliseportabilidade` set `valorliberado1` = '$valorliberado7',`bancodigitacao1` = '$bancodigitacao7',`tipooperacao1` = '$tipooperacao7' where `propostasanaliseportabilidade`. `num_proposta` = '$num_proposta' and `linha` = '$linha7' limit 1 ";
+mysql_query($comando,$conexao);
+	
+	
+	
+$valorliberado8 = $_POST['valorliberado8'];
+	
+$bancodigitacao8 = $_POST['bancodigitacao8'];
+
+$tipooperacao8 = $_POST['tipooperacao8'];
+	
+$linha8 = $_POST['linha8'];
+	
+	
+$comando = "update `$db`.`propostasanaliseportabilidade` set `valorliberado1` = '$valorliberado8',`bancodigitacao1` = '$bancodigitacao8',`tipooperacao1` = '$tipooperacao8' where `propostasanaliseportabilidade`. `num_proposta` = '$num_proposta' and `linha` = '$linha8' limit 1 ";
+mysql_query($comando,$conexao);
+	
+	
+$valorliberado9 = $_POST['valorliberado9'];
+	
+$bancodigitacao9 = $_POST['bancodigitacao9'];
+
+$tipooperacao9 = $_POST['tipooperacao9'];
+	
+$linha9 = $_POST['linha9'];
+	
+	
+$comando = "update `$db`.`propostasanaliseportabilidade` set `valorliberado1` = '$valorliberado9',`bancodigitacao1` = '$bancodigitacao9',`tipooperacao1` = '$tipooperacao9' where `propostasanaliseportabilidade`. `num_proposta` = '$num_proposta' and `linha` = '$linha9' limit 1 ";
+mysql_query($comando,$conexao);
+	
+	
+$valorliberado10 = $_POST['valorliberado10'];
+	
+$bancodigitacao10 = $_POST['bancodigitacao10'];
+
+$tipooperacao10 = $_POST['tipooperacao10'];
+	
+$linha10 = $_POST['linha10'];
+	
+	
+$comando = "update `$db`.`propostasanaliseportabilidade` set `valorliberado1` = '$valorliberado10',`bancodigitacao1` = '$bancodigitacao10',`tipooperacao1` = '$tipooperacao10' where `propostasanaliseportabilidade`. `num_proposta` = '$num_proposta' and `linha` = '$linha10' limit 1 ";
+mysql_query($comando,$conexao);
+	
+	
+	
+	
+$margememprestimo_parcela = $_POST['margememprestimo_parcela'];
+$margememprestimo_valorliberado = $_POST['margememprestimo_valorliberado'];
+$margememprestimo_bancodigitacao = $_POST['margememprestimo_bancodigitacao'];
+	
+$comando = "update `$db`.`propostasanalisecreditonovo` set `margememprestimo_parcela` = '$margememprestimo_parcela',`margememprestimo_valorliberado` = '$margememprestimo_valorliberado',`margememprestimo_bancodigitacao` = '$margememprestimo_bancodigitacao' where `propostasanalisecreditonovo`. `num_proposta` = '$num_proposta' limit 1 ";
+mysql_query($comando,$conexao);
+	
+	
+	
+$margemcartao_parcela = $_POST['margemcartao_parcela'];
+$margemcartao_valorliberado = $_POST['margemcartao_valorliberado'];
+$margemcartao_bancodigitacao = $_POST['margemcartao_bancodigitacao'];
+	
+$comando = "update `$db`.`propostasanalisecreditonovo` set `margemcartao_parcela` = '$margemcartao_parcela',`margemcartao_valorliberado` = '$margemcartao_valorliberado',`margemcartao_bancodigitacao` = '$margemcartao_bancodigitacao' where `propostasanalisecreditonovo`. `num_proposta` = '$num_proposta' limit 1 ";
+mysql_query($comando,$conexao);
+	
+	
+	
+$debitoemconta = $_POST['debitoemconta'];
+$debitoemconta_parcela = $_POST['debitoemconta_parcela'];
+$debitoemconta_valorliberado = $_POST['debitoemconta_valorliberado'];
+$debitoemconta_bancodigitacao = $_POST['debitoemconta_bancodigitacao'];
+	
+$comando = "update `$db`.`propostasanalisecreditonovo` set `debitoemconta` = '$debitoemconta',`debitoemconta_parcela` = '$debitoemconta_parcela',`debitoemconta_valorliberado` = '$debitoemconta_valorliberado',`debitoemconta_bancodigitacao` = '$debitoemconta_bancodigitacao' where `propostasanalisecreditonovo`. `num_proposta` = '$num_proposta' limit 1 ";
+mysql_query($comando,$conexao);
+	
+	
+	
+$creditocarne = $_POST['creditocarne'];
+$creditocarne_parcela = $_POST['creditocarne_parcela'];
+$creditocarne_valorliberado = $_POST['creditocarne_valorliberado'];
+$creditocarne_bancodigitacao = $_POST['creditocarne_bancodigitacao'];
+	
+$comando = "update `$db`.`propostasanalisecreditonovo` set `creditocarne` = '$creditocarne',`creditocarne_parcela` = '$creditocarne_parcela',`creditocarne_valorliberado` = '$creditocarne_valorliberado',`creditocarne_bancodigitacao` = '$creditocarne_bancodigitacao' where `propostasanalisecreditonovo`. `num_proposta` = '$num_proposta' limit 1 ";
+mysql_query($comando,$conexao);
+	
+	
+$creditocontaenergia = $_POST['creditocontaenergia'];
+$creditocontaenergia_parcela = $_POST['creditocontaenergia_parcela'];
+$creditocontaenergia_valorliberado = $_POST['creditocontaenergia_valorliberado'];
+$creditocontaenergia_bancodigitacao = $_POST['creditocontaenergia_bancodigitacao'];
+	
+
+$comando = "update `$db`.`propostasanalisecreditonovo` set `creditocontaenergia` = '$creditocontaenergia',`creditocontaenergia_parcela` = '$creditocontaenergia_parcela',`creditocontaenergia_valorliberado` = '$creditocontaenergia_valorliberado',`creditocontaenergia_bancodigitacao` = '$creditocontaenergia_bancodigitacao' where `propostasanalisecreditonovo`. `num_proposta` = '$num_proposta' limit 1 ";
+mysql_query($comando,$conexao);
+
+
+
+if(empty($mensagem_envio_email_ao_cliente)){
+	
+}
+else{
+	
+//PREPARA O PEDIDO
+
+	$mens   =  "Olá $nome_cli! \n";
+	$mens  .=  "$mensagem_do_email \n";
+
+
+$mens  .=  $to = "$email_cli";
+$from = "$email_operador";
+$subject = "Olá $nome_cli! $texto2";
+$html = "
+<html>
+<body>
+Olá $nome_cli! $mensagem_do_email<b>!<br><br>
+
+Nº de sua proposta: $num_proposta<br>
+Operador(a) que lhe irá atender: $operador<br><br>
+
+Caso prefira, fique a vontade em ligar para a pessoa que lhe irá atender!<br>
+Agencia: $estabelecimento_proposta<br>
+Cidade: $cidade_estabelecimento<br>
+E-Mail: $email_operador<br>
+Celular: $cel_operador<br>
+</body>
+</html>";
+$headers = 'MIME-Version: 1.0' . "\r\n";
+$headers = "Content-type: text/html; charset=iso-8859-1\r\n";
+$headers .= "From: $from \r\n";
+
+if (@mail($to, $subject, $html, $headers)) {
+echo "Email enviado com sucesso para $email_cli!";
+} else {
+echo "Ocorreu um erro durante o envio do email para $email_cli.";
+}
+	
+	//DISPARA O EMAIL PARA O OPERADOR
+	
+$mens  .=  $to = "$email_operador";
+$from = "$email_operador";
+$subject = "Olá $nome_cli! $texto2";
+$html = "
+<html>
+<body>
+Olá $nome_cli!$mensagem_do_email<br><br>
+
+Nº de sua proposta: $num_proposta<br>
+Operador(a) que lhe irá atender: $operador<br><br>
+
+Caso prefira, fique a vontade em ligar para a pessoa que lhe irá atender!<br>
+Agencia: $estabelecimento_proposta<br>
+Cidade: $cidade_estabelecimento<br>
+E-Mail: $email_operador<br>
+Celular: $cel_operador<br>
+</body>
+</html>";
+$headers = 'MIME-Version: 1.0' . "\r\n";
+$headers = "Content-type: text/html; charset=iso-8859-1\r\n";
+$headers .= "From: $from \r\n";
+
+if (@mail($to, $subject, $html, $headers)) {
+echo "Email enviado com sucesso para $email_operador!";
+} else {
+echo "Ocorreu um erro durante o envio do email para $email_operador.";
+}
+
+	
+}
+	
+	
+}
+
+?>
+
+
+<?
+
+$sql = "SELECT * FROM fundo_navegacao";
+$res = mysql_query($sql);
+
+while($linha=mysql_fetch_row($res)) {
+?>
+
+
+<body 
+  
+<? } ?>
+
+
+<?
+$sql = "SELECT * FROM background";
+$res = mysql_query($sql);
+while($linha=mysql_fetch_row($res)) {
+?>
+
+background="background/<? printf("$linha[1]"); ?>" bgproperties="fixed">
+  
+<? } ?>
+
+
+
+
+
+
+      <p>
+        <?
+$sql = "SELECT * FROM fundo_intermediaria";
+$res = mysql_query($sql);
+
+while($linha=mysql_fetch_row($res)) {
+
+$cor = $linha[1];	
+?>
+<? } ?>
+</p>
+      <form action="../principal.php" method="post" name="form1" target="_top">
+        <?
+$usuario = $_SESSION['usuario'];
+$senha = $_SESSION['senha'];
+?>
+        <input class='class01' type="submit" name="Submit2" value="Voltar ao menu principal">
+</form>
+<br>
+      <table width="100%"  border="0" align="center">
+        <tr>
+          <td width="18%" valign="middle">&nbsp;</td>
+          <td width="51%" valign="middle"><div align="center"><strong>Selecione o tipo de proposta que deseja filtrar</strong></div></td>
+          <td width="31%">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" valign="middle"><form name="form3" method="post" action="propostas_a_digitar.php">
+            <div align="center"><strong><font color="#0000FF">
+            Consignado
+            <select class='class02' name="tipo_proposta" id="tipo_proposta">
+              <option selected>Todas</option>
+              <?
+
+
+
+
+
+    $sql = "select * from tipos_propostas group by tipo_proposta order by tipo_proposta asc";
+
+    $result = mysql_query($sql);
+
+    while($x=mysql_fetch_array($result)){
+
+  echo "<option>".$x['tipo_proposta']."</option>";
+
+    }
+
+?>
+            </select> 
+            Veiculos / CP
+            </font></strong>
+              <strong><font color="#0000FF">
+              <select class='class02' name="titulo_proposta" id="titulo_proposta">
+                <option selected>Todas</option>
+                <?
+
+
+
+
+
+    $sql = "select * from titulos_propostas group by titulo_proposta order by titulo_proposta asc";
+
+    $result = mysql_query($sql);
+
+    while($x=mysql_fetch_array($result)){
+
+  echo "<option>".$x['titulo_proposta']."</option>";
+
+    }
+
+?>
+              </select>
+              </font></strong>
+              <input class='class01' type="submit" name="Submit" value="Filtrar TIPO PROPOSTA">
+            </div>
+          </form></td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td valign="middle">&nbsp;</td>
+          <td valign="middle"><div align="center"> 
+            <?	
+
+$sql = "SELECT * FROM propostas where digitacao = 'A Digitar' and status <> 'REPROVADO' and cpf <> '' order by data_proposta,horaproposta asc";
+
+$res = mysql_query($sql);
+
+$registros_propostas = mysql_num_rows($res);
+
+
+
+
+
+//echo $registros_propostas;
+
+?>
+          </div></td>
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+      
+<br>
+<?
+echo "<table align='center'><tr>";
+
+
+$sql = "select * from tipo_contrato where status = 'Ativo' group by tipo_contrato asc";
+$res = mysql_query($sql);
+while($linha=mysql_fetch_row($res)) {
+$reg++;
+
+
+
+$tipo_do_contrato = $linha[1];
+
+
+
+$sql2 = "SELECT * FROM propostas where digitacao = 'A Digitar' and tipo_contrato = '$tipo_do_contrato' and status <> 'REPROVADO' and cpf <> ''";
+$res2 = mysql_query($sql2);
+
+$registros_encontrados = mysql_num_rows($res2);
+
+
+
+
+
+echo "<td><form name='form4' method='post' action='propostas_a_digitar.php'>";
+     
+
+  	$_SESSION['usuario'] = $usuario;
+
+	$_SESSION['senha'] = $senha;
+
+      echo "<input type='hidden' name='tipo_contrato' id='tipo_contrato' value='$tipo_do_contrato'>";
+
+
+
+
+ echo "<input class='class01' type='submit' name='button' id='button' value='$tipo_do_contrato $registros_encontrados'>";
+	  
+	  
+	  
+
+echo "</form>";
+
+
+if($reg<=5){
+	
+echo "</td><td>";
+
+}
+else{
+	
+echo "</td></tr><br>";
+	
+$reg=0;
+
+}
+
+
+}
+
+echo "</table>";
+
+?>
+<br>
+
+
+
+
+<table width="80%"  border="0" align="center">
+	<form name="form" method="post" action="propostas_a_digitar.php">
+		<?	
+
+if($tipo_contrato=="Todas"){
+//$sql = "SELECT * FROM propostas where digitacao = 'A Digitar' and status <> 'REPROVADO' and cpf <> '' order by data_proposta,horaproposta asc";
+}
+else{
+$sql = "SELECT * FROM propostas where digitacao = 'A Digitar' and tipo_contrato = '$tipo_contrato' and status <> 'REPROVADO' and cpf <> '' order by data_proposta,horaproposta asc";
+}
+$res = mysql_query($sql);
+$registros = mysql_num_rows($res);
+
+echo "Total de registros encontrados por TIPO DE CONTRATO $tipo_contrato---> ".$registros;
+
+?>      
+  <tr bgcolor="#<? echo $cor ?>">
+    <td colspan="22" align="left"><div align="center">
+      
+      <span class="style3">
+      <input name="tipo_contrato" type="hidden" id="tipo_contrato" value="<? echo "$tipo_contrato"; ?>">
+      </span>
+      <? if($tipo_contrato=="SITE"){ ?> <input class='class01' type="submit" name="button" id="button" value="Atualizar"> <? } ?>  
+    </div></td>
+  </tr>
+	
+  <tr bgcolor="#<? echo $cor ?>">
+    <td colspan="4">Operador</td>
+    <td colspan="7"><strong><font color="#0000FF">
+      <? if($tipo_contrato=="SITE"){
+
+		 ?>
+      <select class='class02' name="nome_operador_a_atribuir" id="nome_operador_a_atribuir">
+        <option selected><? echo $nome_operador; ?></option>
+        <?
+
+
+
+    $sql = "select * from operadores where status = 'Ativo' order by nome asc";
+
+    $result = mysql_query($sql);
+
+    while($x=mysql_fetch_array($result)){
+
+
+
+  echo "<option>".$x['nome']."</option>";
+
+
+
+    }
+
+
+
+?>
+      </select>
+      <?  
+
+	  }
+
+	  else{
+
+		  
+
+		  echo $nome_operador;
+
+	  }
+
+		  ?>
+    </font></strong></td>
+    <td colspan="3">Status</td>
+    <td colspan="5"><strong><font color="#0000FF">
+      <? if($tipo_contrato=="SITE"){
+
+		 ?>
+      <select class='class02' name="status" id="status">
+        <option selected><? echo $status; ?></option>
+        <?
+
+    $sql = "select * from status where setor = 'CONSIGNADO' and status <> 'PAGO AO CLIENTE' order by status asc";
+
+    $result = mysql_query($sql);
+
+    while($x=mysql_fetch_array($result)){
+
+  echo "<option>".$x['status']."</option>";
+
+    }
+
+?>
+      </select>
+      <?  
+
+	  }
+
+	  else{
+
+		  
+
+		  //echo $status;
+
+	  }
+
+		  ?>
+    </font></strong></td>
+    <td class="style3">&nbsp;</td>
+    <td class="style3">&nbsp;</td>
+    <td class="style3">&nbsp;</td>
+  </tr>
+  <tr bgcolor="#<? echo $cor ?>">
+    <td><div align="center" class="style3">Proposta</div></td>
+    <td><div align="center" class="style3">Valor liq cliente </div></td>
+    <td><div align="center"><span class="style3">Valor Total </span></div></td>
+    <td><div align="center"><span class="style3">Tabela</span></div></td>
+    <td><div align="center" class="style3">Cliente</div></td>
+    <td class="style3"><div align="center">CPF</div></td>
+    <td><div align="center" class="style3">Secretaria</div></td>
+    <td><div align="center" class="style3">Cargo</div></td>
+    <td class="style3"><div align="center">Cidade</div></td>
+    <td class="style3"><div align="center">E-Mail</div></td>
+    <td class="style3"><div align="center">Telefones</div></td>
+    <td width="2%"><div align="center" class="style3">Prazo</div></td>
+    <td width="3%"><div align="center" class="style3">R$ Parcelas </div></td>
+    <td><div align="center" class="style3">Tipo De Contrato</div></td>
+    <td><div align="center" class="style3">Tipo de PropostaPropostaPropostaPropostaProposta </div></td>
+    <td><div align="center" class="style3">Bco Opera&ccedil;&atilde;o </div></td>
+    <td align="center" class="style3">#</td>
+    <td align="center" class="style3">Operador</td>
+    <td class="style3"><div align="center">Status</div></td>
+    <td class="style3"><div align="center">Margem Cat&atilde;o</div></td>
+    <td class="style3"><div align="center">Margem Emprestimo</div></td>
+    <td class="style3"><div align="center"></div></td>
+  </tr>
+  <?
+
+
+if($tipo_proposta=="Todas"){
+$sql = "SELECT * FROM propostas where digitacao = 'A Digitar' and status <> 'REPROVADO' and cpf <> '' order by data_proposta,horaproposta asc";
+}
+else{
+$sql = "SELECT * FROM propostas where digitacao = 'A Digitar' and tipo_contrato = '$tipo_contrato' and status <> 'REPROVADO' and cpf <> '' order by data_proposta,horaproposta asc";
+}
+$res = mysql_query($sql);
+while($linha=mysql_fetch_row($res)) {
+
+$num_proposta = $linha[0];
+	$i = $linha[0];
+$nome_operador = $linha[1];
+$tipo = $linha[2];
+$estabelecimento_proposta = $linha[3];
+$nome = $linha[4];
+$sexo = $linha[5];
+$estadocivil = $linha[6];
+$cpf = $linha[7];
+$rg = $linha[8];
+$orgao = $linha[9];
+$emissao = $linha[10];
+$data_nasc = $linha[11];
+$pai = $linha[12];
+$mae = $linha[13];
+$endereco = $linha[14];
+$numero = $linha[15];
+$bairro = $linha[16];
+$complemento = $linha[17];
+$cidade = $linha[18];
+$estado = $linha[19];
+$cep = $linha[20];
+$telefone = $linha[21];
+$celular = $linha[22];
+$email = $linha[23];
+$num_beneficio = $linha[24];
+$num_beneficio2 = $linha[80];
+$num_beneficio3 = $linha[81];
+$num_beneficio4 = $linha[82];
+$tipo_proposta = $linha[83];
+$valor_credito = $linha[25];
+$quant_parc = $linha[26];
+$parcela = $linha[27];
+$banco_pagto = $linha[28];
+$num_banco = $linha[29];
+$agencia = $linha[30];
+$conta = $linha[31];
+$operador = $linha[32];
+$cel_operador = $linha[33];
+$email_operador = $linha[34];
+$estabelecimento = $linha[35];
+$cidade_estabelecimento = $linha[36];
+$tel_estabelecimento = $linha[37];
+$email_estabelecimento = $linha[38];
+$obs = $linha[39];
+$dataproposta = $linha[40];
+$horaproposta = $linha[41];
+$dataalteracao = $linha[42];
+$horaalteracao = $linha[43];
+$operador_alterou = $linha[44];
+$cel_operador_alterou = $linha[45];
+$email_operador_alterou = $linha[46];
+$estabelecimento_alterou = $linha[47];
+$cidade_estabelecimento_alterou = $linha[48];
+$tel_estabelecimento_alterou = $linha[49];
+$email_estabelecimento_alterou = $linha[50];
+$status = $linha[51];
+
+$parc = $linha[52];
+$banco = $linha[53];
+$vencto = $linha[54];
+$compra = $linha[55];
+
+$parc = $linha[52];
+$banco = $linha[53];
+$vencto = $linha[54];
+$compra = $linha[55];
+
+$parc1 = $linha[52];
+$banco1 = $linha[53];
+$vencto1 = $linha[54];
+$compra1 = $linha[55];
+
+$parc2 = $linha[56];
+$banco2 = $linha[57];
+$vencto2 = $linha[58];
+$compra2 = $linha[59];
+
+$parc3 = $linha[60];
+$banco3 = $linha[61];
+$vencto3 = $linha[62];
+$compra3 = $linha[63];
+
+$parc4 = $linha[64];
+$banco4 = $linha[65];
+$vencto4 = $linha[66];
+$compra4 = $linha[67];
+
+$parc5 = $linha[68];
+$banco5 = $linha[69];
+$vencto5 = $linha[70];
+$compra5 = $linha[71];
+
+$parc6 = $linha[72];
+$banco6 = $linha[73];
+$vencto6 = $linha[74];
+$compra6 = $linha[75];
+
+$parc7 = $linha[76];
+$banco7 = $linha[77];
+$vencto7 = $linha[78];
+$compra7 = $linha[79];
+$bco_operacao = $linha[86];
+
+$valor_liberado = $linha[97];
+$obs2 = $linha[102];
+$tabela = $linha[109];
+$valor_total = $linha[113];
+$valor_liquido_cliente = $linha[115];
+$tipo_contrato = $linha[136];
+$digitacao = $linha[154];
+$datadigitacao = $linha[155];
+$horadigitacao = $linha[156];
+
+$cargosituacao = $linha[207];
+$margemcartao = $linha[209];
+$margememprestimo = $linha[210];
+
+$secretaria = $linha[214];
+
+
+?>
+	
+  <tr>
+    
+    <td width="4%">
+		<form name="form1" method="post" action="visualizacao_proposta_para_digitacao.php">
+		<div align="center" class="style3">
+      <div align="center" class="style3">
+        <?
+$usuario = $_SESSION['usuario'];
+$senha = $_SESSION['senha'];
+?>
+        <input name="num_proposta" type="hidden" id="num_proposta" value="<? echo $num_proposta; ?>">
+        <input name="digitacao" type="hidden" id="digitacao" value="<? 
+	if($tipo_contrato=="SITE"){
+		echo "";
+	}
+	else{
+	echo "Digitada"; } ?>">
+        <? //echo $num_proposta; ?>
+        <input name="operadorqueabriu" type="hidden" id="operadorqueabriu" value="<? echo "$operadorqueabriu"; ?>">
+        <? if($digitacao=="A Digitar"){ //echo "<input type='submit' name='button' id='button' value='$num_proposta'>"; ?>
+	<a href="visualizacao_proposta_para_digitacao.php?digitacao=Digitada&num_da_proposta=<? echo "$num_proposta"; ?>&operadorqueabriu=<? echo "$operadorqueabriu"; ?>&tipo_contrato=<? echo "$tipo_contrato"; ?>" method="post"><b><? echo "$num_proposta"; ?></b></a>
+<? } ?>
+      </div>
+    </div>
+		</form>
+			</td>
+    <td width="3%"><div align="center"><span class="style3"><? echo "R$ ".$valor_liquido_cliente;?></span></div></td>
+    <td width="3%"><div align="center"><span class="style3"><? echo $valor_total;?></span></div></td>
+    <td width="3%"><div align="center"><span class="style3"><? echo $tabela;?></span></div></td>
+    <td width="7%"><div align="center" class="style3"><? echo $nome; ?></div></td>
+    <td width="4%" class="style3"><div align="center"><? echo $cpf; ?></div></td>
+    <td width="4%"><div align="center"><span class="style3"><? echo $secretaria; ?></span></div></td>
+    <td width="4%"><div align="center" class="style3"><? echo $cargosituacao; ?></div></td>
+    <td width="4%" class="style3"><div align="center"><? echo $cidade; ?></div></td>
+    <td width="4%" class="style3"><div align="center"><? echo $email; ?></div></td>
+    <td width="4%" class="style3"><div align="center"><? echo "$telefone "; ?> <? echo "$celular "; ?></div></td>
+    <td><div align="center" class="style3"><? echo $quant_parc; ?></div></td>
+    <td><div align="center" class="style3"><? echo $parcela; ?></div></td>
+    <td width="3%"><div align="center"><span class="style3">
+      <input name="tipo_contrato" type="hidden" id="tipo_contrato" value="<? echo "$tipo_contrato"; ?>">
+      <? echo $tipo_contrato; ?></span></div></td>
+    <td width="3%"><div align="center" class="style3"><? echo $tipo_proposta; ?></div></td>
+    <td width="9%"><div align="center" class="style3"><? echo $bco_operacao; ?></div></td>
+    <td width="9%" align="center" class="style3"><? if($tipo_contrato=="SITE"){ ?> <input class='class02' name="atribuicaoemmassa[]" type="checkbox" id="atribuicaoemmassa[]" value='<? echo "$num_proposta"; ?>'></input> <? } ?></td>
+    <td width="9%" align="center" class="style3"><? echo $nome_operador; ?></td>
+    <td width="9%" class="style3"><div align="center"><? echo $status; ?></div></td>
+    <td width="7%" class="style3"><div align="center">
+      <strong><font color="#0000FF">
+      <? if($tipo_contrato=="SITE"){
+
+		 ?>
+      </font></strong>
+      <input class='class02' name="<? echo "margemcartao$num_proposta"; ?>" type="text"  id="<? echo "$num_proposta"; ?>" value="<? echo "$margemcartao"; ?>" size="5">
+      <strong><font color="#0000FF">
+      <?  
+
+	  }
+
+	  else{
+
+		  
+
+		  echo $margemcartao;
+
+	  }
+
+		  ?>
+      </font></strong>    </div></td>
+    <td width="9%" class="style3"><div align="center">
+      <strong><font color="#0000FF">
+      <? if($tipo_contrato=="SITE"){
+
+		 ?>
+      </font></strong>
+      <input name="<? echo "margememprestimo$num_proposta"; ?>" type="text" class='class02' id="margememprestimo[]" value="<? echo "$margememprestimo"; ?>" size="5">
+      <strong><font color="#0000FF">
+      <?  
+
+	  }
+
+	  else{
+
+		  
+
+		  echo $margememprestimo;
+
+	  }
+
+		  ?>
+      </font></strong>    </div></td>
+    <td width="8%" class="style3"><div align="center">
+      <strong><font color="#0000FF">
+      <input name="solicitacao" type="hidden" id="solicitacao" value="atualizarstatus">
+      <input name="num_proposta_atualizar" type="hidden" id="num_proposta_atualizar" value="<? echo "$num_proposta"; ?>">
+      <input name="num_proposta" type="hidden" id="num_proposta" value="<? echo "$num_proposta"; ?>">
+      </font></strong>
+      <strong><font color="#0000FF">
+      <? if($tipo_contrato=="SITE"){
+
+		 ?>
+      </font></strong><strong><font color="#0000FF">
+      <?  
+
+	  }
+
+	  else{
+
+		  
+
+		  //echo $margememprestimo;
+
+	  }
+
+		  ?>
+      </font></strong></div></td>
+		
+		
+	  
+    </tr>
+	  
+	  <? } ?>
+		
+    </form>
+    
+</table>
+<p>
+<P>
+<p>
+<p>
+<p>
+  <?
+
+			
+if($titulo_proposta=="Todas"){
+$sql = "SELECT * FROM propostas_veiculos where digitacao = 'A Digitar' order by data_proposta,horaproposta asc";
+}
+else{
+$sql = "SELECT * FROM propostas_veiculos where digitacao = '.A Digitar' and titulo_proposta = '$titulo_proposta' order by data_proposta,horaproposta asc";
+}
+$res = mysql_query($sql);
+
+while($linha=mysql_fetch_row($res)) {
+
+
+
+
+
+$num_proposta_veiculos = $linha[0];
+
+$dataproposta = $linha[1];
+
+$horaproposta = $linha[2];
+
+$mes_ano = $linha[3];
+
+$estabelecimento_proposta = $linha[4];
+
+$operador_atendente = $linha[5];
+
+$status2 = $linha[6];
+
+$tipo = $linha[7];
+
+$tipo_proposta = $linha[8];
+
+$nome = $linha[9];
+
+$tipo_pessoa = $linha[10];
+
+$data_nasc = $linha[11];
+
+$cpf = $linha[12];
+
+$rg = $linha[13];
+
+$orgao = $linha[14];
+
+$emissao = $linha[15];
+
+$sexo = $linha[16];
+
+$estadocivil = $linha[17];
+
+$nacionalidade = $linha[18];
+
+$quant_dependente = $linha[19];
+
+$pai = $linha[20];
+
+$mae = $linha[21];
+
+$conjuge = $linha[22];
+
+$data_nasc_conjuge = $linha[23];
+
+$endereco = $linha[24];
+
+$numero = $linha[25];
+
+$bairro = $linha[26];
+
+$complemento = $linha[27];
+
+$cidade = $linha[28];
+
+$estado = $linha[29];
+
+$cep = $linha[30];
+
+$correspondencia = $linha[31];
+
+$tipo_residencia = $linha[32];
+
+$valor_aluguel = $linha[33];
+
+$tempo_residencia = $linha[34];
+
+$telefone = $linha[35];
+
+$celular = $linha[36];
+
+$tipo_telefone = $linha[37];
+
+$residencia_anterior = $linha[38];
+
+$bairro_anterior = $linha[39];
+
+$cidade_anterior = $linha[40];
+
+$estado_anterior = $linha[41];
+
+$tempo_residencia_anterior = $linha[42];
+
+$email = $linha[43];
+
+$empresa = $linha[44];
+
+$porte_empresa = $linha[45];
+
+$data_admissao = $linha[46];
+
+$inicio_atividade = $linha[47];
+
+$end_empresa = $linha[48];
+
+$numero_empresa = $linha[49];
+
+$complemento_empresa = $linha[50];
+
+$bairro_empresa = $linha[51];
+
+$cep_empresa = $linha[52];
+
+$cidade_empresa = $linha[53];
+
+$estado_empresa = $linha[54];
+
+$telefone_empresa = $linha[55];
+
+$cpt = $linha[56];
+
+$serie = $linha[57];
+
+$cargo = $linha[58];
+
+$natureza_operacao = $linha[59];
+
+$salario = $linha[60];
+
+$atividade_principal = $linha[61];
+
+$data_constituicao = $linha[62];
+
+$cnpj = $linha[63];
+
+$inscr_est = $linha[64];
+
+$capital_social = $linha[65];
+
+$atividade_anterior = $linha[66];
+
+$data_admissao_anterior = $linha[67];
+
+$data_saida = $linha[68];
+
+$cargo_anterior = $linha[69];
+
+$telefone_empresa_anterior = $linha[70];
+
+$outras_rendas = $linha[71];
+
+$ref_pessoal = $linha[72];
+
+$tel_ref_pessoal = $linha[73];
+
+$ref_pessoal2 = $linha[74];
+
+$tel_ref_pessoal2 = $linha[75];
+
+$ref_comercial = $linha[76];
+
+$tel_ref_comercial = $linha[77];
+
+$ref_banco = $linha[78];
+
+$ref_agencia = $linha[79];
+
+$ref_conta = $linha[80];
+
+$ref_tipo_conta = $linha[81];
+
+$ref_conta_desde = $linha[82];
+
+$cartao_credito = $linha[83];
+
+$automovel = $linha[84];
+
+$valor_automoveis = $linha[85];
+
+$residencia = $linha[86];
+
+$valor_residencia = $linha[87];
+
+$outras_propriedades = $linha[88];
+
+$valor_outras_propriedades = $linha[89];
+
+$veiculo = $linha[90];
+
+$ano_modelo = $linha[91];
+
+$renavam = $linha[92];
+
+$num_portas = $linha[93];
+
+$combustivel = $linha[94];
+
+$placa = $linha[95];
+
+$valor_venda = $linha[96];
+
+$valor_entrada = $linha[97];
+
+$tarifa_cadastro = $linha[98];
+
+$valor_financiar2 = $linha[99];
+
+$coeficiente = $linha[100];
+
+$codigo_tabela = $linha[101];
+
+$num_parcelas2 = $linha[102];
+
+$valor_parcelas2 = $linha[103];
+
+$vencto_1_parcela = $linha[104];
+
+$r = $linha[105];
+
+$valor_liberado = $linha[106];
+
+$pagto_serv_terc = $linha[107];
+
+$obs = $linha[108];
+
+$operador = $linha[109];
+
+$cel_operador = $linha[110];
+
+$email_operador = $linha[111];
+
+$estab_pertence = $linha[112];
+
+$cidade_estab_pertence = $linha[113];
+
+$tel_estab_pertence = $linha[114];
+
+$email_estab_pertence = $linha[115];
+
+$operador_alterou = $linha[116];
+
+$operador = $linha[117];
+
+$cel_operador_alterou = $linha[118];
+
+$email_operador_alterou = $linha[119];
+
+$estab_alterou = $linha[120];
+
+$cidade_estab_alterou = $linha[121];
+
+$tel_estab_alterou = $linha[122];
+
+$email_estab_alterou = $linha[123];
+
+$dataalteracao = $linha[124];
+
+$horaalteracao = $linha[125];
+
+$recebido = $linha[126];
+
+$comissao_op = $linha[127];
+
+$meses = $linha[128];
+
+$parecer_credito = $linha[145];
+
+$titulo_proposta = $linha[150];
+
+$digitacao_veiculos = $linha[151];
+
+?>
+<table width="100%"  border="0">
+  <tr bgcolor="#<? echo "008080"; ?>">
+    <td><div align="center"><font size="2">N&ordm; da Proposta </font></div></td>
+    <td><div align="center"><font size="2">Data Proposta</font></div></td>
+    <td><div align="center"><font size="2">Valor Cr&eacute;dito</font></div></td>
+    <td width="7%"><div align="center"><font size="2">Quant  parcelas </font></div></td>
+    <td width="8%"><div align="center"><font size="2">Valor parcelas </font></div></td>
+    <td><div align="center">Titulo Proposta</div></td>
+    <td><div align="center"><font size="2">Status</font></div></td>
+  </tr>
+  <tr>
+    <td width="17%"><form name="form2" method="post" action="visualizacao_de_proposta_de_veiculos_para_digitacao.php">
+      <div align="center"> <font size="2">
+        <?
+
+$usuario = $_SESSION['usuario'];
+
+$senha = $_SESSION['senha'];
+
+?>
+        <input name="num_proposta" type="hidden" id="num_proposta" value="<? echo $num_proposta_veiculos; ?>">
+        <span class="style3">
+        <input name="digitacao" type="hidden" id="digitacao" value="<? echo "Digitada";  ?>">
+        </span>      </font> 
+        <span class="style3">
+        <input name="operadorqueabriu" type="hidden" id="operadorqueabriu" value="<? echo "$operadorqueabriu"; ?>">
+        </span>
+        <? if($digitacao_veiculos=="A Digitar"){ echo "<input type='submit' name='button' id='button' value='$num_proposta_veiculos'>"; } ?></div>
+    </form></td>
+    <td width="10%"><div align="center"><font size="2"><? echo $dataproposta;?></font><font size="2"><? echo " - $horaproposta";?></font></div></td>
+    <td width="8%"><div align="center"><font size="2"><? echo "R$ ".$valor_financiar2;?> </font></div></td>
+    <td><div align="center"><font size="2"><? echo $num_parcelas2;?> </font></div></td>
+    <td><div align="center"><font size="2"><? echo "R$ ".$valor_parcelas2;?> </font></div></td>
+    <td width="11%"><div align="center"><font size="2"><? echo $titulo_proposta;?></font></div></td>
+    <td width="15%"><div align="center"><font size="2"><? echo $status2;?> </font></div></td>
+    <?
+
+if($reg==1){
+
+echo "</tr>";
+
+$reg=0;
+
+}
+
+?>
+    <? } ?>
+</table>
+<p>&nbsp;</p>
+
+
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+h2{
+	text-align: center;
+	font-size: 2.4vw;
+	line-height: 70%;
+	color: #0000FF;
+}
+
+background {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+
+}
+
+section{
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1200px;
+	margin: auto;
+	box-sizing: border-box;
+	justify-content: center;
+}
+
+.bloco_botoes{
+	width: 100px;
+	height: 100px;
+	flex-wrap: wrap;
+	margin: 1.5%;
+}
+
+.bot{
+	justify-content: center;
+}
+
+#veiculos{
+	display: none;
+}
