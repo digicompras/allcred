@@ -768,7 +768,7 @@ $resposta = $linha[160];
 //------------------------
 	
 	
-	include 'grava_proposta_automatico_analise_credito.php';
+	//include 'grava_proposta_automatico_analise_credito.php';
 
 	
 
@@ -898,49 +898,338 @@ $email_dest = $email_mesa;
 
 
 ?>
-
-
-
-
-
-
-
-
-
 <p>&nbsp;</p>
-
-<form action="imprimir_proposta.php" method="post" name="form1" target="_blank">
-
-  <?
+<table width="100%" border="0">
+  <tbody>
+    <tr>
+      <td width="28%"><form name="form1" method="post" action="../index.php">
+        <?
 
 $usuario = $_SESSION['usuario'];
 
 $senha = $_SESSION['senha'];
 
 ?>
-<?
+        <input class='class01' type="submit" name="Submit2" value="Voltar ao menu principal">
+      </form></td>
+      <td width="41%"><form action="imprimir_proposta.php" method="post" name="form1" target="_blank">
+        <?
+
+$usuario = $_SESSION['usuario'];
+
+$senha = $_SESSION['senha'];
+
+?>
+        <?
 
   echo "<input class='class01' type='submit' name='Submit3' value='Imprimir Proposta'>";
   ?>
-
-  <input name="num_proposta" type="hidden" id="num_proposta" value="<? echo $num_proposta; ?>">
-
-</form>
-
-<form name="form1" method="post" action="../index.php">
-
-  <?
+        <input name="num_proposta" type="hidden" id="num_proposta" value="<? echo $num_proposta; ?>">
+      </form></td>
+      <td width="31%"><form action="gera_proposta_filha.php" method="post" name="form1" target="_blank">
+        <?
 
 $usuario = $_SESSION['usuario'];
 
 $senha = $_SESSION['senha'];
 
 ?>
-
-  <input class='class01' type="submit" name="Submit2" value="Voltar ao menu principal">
-
-</form>
-
+        <strong><font color="#0000FF">
+        <input name="tipovenda" type="hidden" id="tipovenda" value="<? echo $tipovenda; ?>">
+        </font></strong><strong><font color="#0000FF">
+        <input name="tipo" type="hidden" id="tipo" value="<? echo $tipo; ?>">
+        </font></strong><strong><font color="#0000FF">
+        <input name="tipo_proposta" type="hidden" id="tipo_proposta" value="<? echo $tipo_proposta; ?>">
+        </font></strong><strong><font color="#0000FF">
+        <input name="tabela" type="hidden" id="tabela" value="<? echo $tabela; ?>">
+        </font></strong>
+        <input name="dataproposta" type="hidden" id="dataproposta3" value="<? echo date('d-m-Y'); ?>">
+        <input name="data_proposta" type="hidden" id="dataproposta4" value="<? echo $date; ?>">
+        <input name="horaproposta" type="hidden" id="horaproposta3" value="<? echo $hora_atual; ?>">
+        <input name="mes_ano" type="hidden" id="mes_ano" value="<? echo date('m-Y'); ?>">
+        <input name="dia" type="hidden" id="dataproposta" value="<? echo date('d'); ?>">
+        <input name="mes" type="hidden" id="dataproposta2" value="<? echo date('m'); ?>">
+        <input name="ano" type="hidden" id="ano" value="<? echo date('Y'); ?>">
+        <strong><font color="#0000FF"></font></strong><strong><font color="#0000FF">
+        <input name="nome_operador" type="hidden" id="nome_operador" value="<? echo $operador; ?>">
+        </font></strong><strong><font color="#0000FF">
+        <input name="estabelecimento_proposta" type="hidden" id="estabelecimento_proposta" value="<? echo $estabelecimento_proposta; ?>">
+        </font></strong><strong><font color="#0000FF">
+        <input name="status" type="hidden" id="status" value="<? echo "AGUARDANDO ATIVACAO"; ?>">
+        <input name="status_pagto_cliente" type="hidden" id="status_pagto_cliente" value="<?  echo "Aguardando_Pagto"; ?>">
+        <input name="status_fisico" type="hidden" id="status_fisico" value="<? echo "PENDENTE DE ENVIO"; ?>">
+        </font></strong><strong><font color="#0000FF">
+        <input name="tipo_contrato" type="hidden" id="tipo_contrato" value="<? echo $tipo_contrato; ?>">
+        </font></strong>
+        <input name="nome" type="hidden" id="nome" value="<? echo $nome; ?>">
+        <input name="categoria" type="hidden" id="categoria" value="<? echo $categoria; ?>">
+        <input name="rg" type="hidden" id="rg" value="<? echo $rg_cli; ?>">
+        <strong>
+        <input name="orgao" type="hidden" id="orgao" value="<? echo $orgao_cli; ?>">
+        </strong>
+        <input name="emissao" type="hidden" id="emissao" value="<? echo $emissao_cli; ?>">
+        <input name="secretaria" type="hidden" id="secretaria" value="<? echo $secretaria; ?>">
+        <input name="cpf" type="hidden" id="cpf" value="<? echo $cpf; ?>">
+        <input name="orientacaosexual" type="hidden" id="orientacaosexual" value="<? echo $orientacaosexual; ?>">
+        <input name="dia_niver" type="hidden" id="dia_niver" value="<? echo $dia_niver; ?>">
+        <input name="mes_niver" type="hidden" id="mes_niver" value="<? echo $mes_niver; ?>">
+        <input name="ano_niver" type="hidden" id="ano_niver" value="<? echo $ano_niver; ?>">
+        <input name="pai" type="hidden" id="pai2" value="<? echo $pai_cli; ?>">
+        <input name="mae" type="hidden" id="mae" value="<? echo $mae_cli; ?>">
+        <input name="estadocivil" type="hidden" id="estadocivil" value="<? echo $estadocivil_cli; ?>">
+        <input name="resposta" type="hidden" id="resposta" value="<? echo $resposta; ?>">
+        <input class='class02' name="valorrenda" type="hidden" id="valorrenda" value="<? echo $valorrenda; ?>">
+        <input name="num_beneficio" type="hidden" id="num_beneficio" value="<? echo $num_beneficio; ?>">
+        <input name="num_beneficio2" type="hidden" id="num_beneficio22" value="<? echo $num_beneficio2; ?>">
+        <input name="num_beneficio3" type="hidden" id="num_beneficio32" value="<? echo $num_beneficio3; ?>">
+        <input name="num_beneficio4" type="hidden" id="num_beneficio42" value="<? echo $num_beneficio4; ?>">
+        <input name="endereco" type="hidden" id="endereco2" value="<? echo $endereco_cli; ?>">
+        <input name="numero" type="hidden" id="numero" value="<? echo $numero_cli; ?>">
+        <input name="complemento" type="hidden" id="complemento" value="<? echo $complemento_cli; ?>">
+        <input name="bairro" type="hidden" id="bairro2" value="<? echo $bairro_cli; ?>">
+        <input name="cep" type="hidden" id="cep2" value="<? echo $cep_cli; ?>">
+        <input name="cidade" type="hidden" id="cidade2" value="<? echo $cidade_cli; ?>">
+        <strong><font color="#0000FF">
+        <input name="estado" type="hidden" id="estado" value="<? echo $estado_cli; ?>">
+        </font></strong>
+        <input name="pagto_beneficio" type="hidden" id="email2" value="<? echo $pagto_beneficio; ?>">
+        <input class='class02' name="telefone" type="hidden" id="telefone3" value="<? echo $telefone_cli; ?>" size="15" maxlength="14">
+        <input class='class02' name="celular" type="hidden" id="celular" value="<? echo $celular_cli; ?>" size="15" maxlength="14">
+        <font color="#0000FF">
+        <input class='class02' name="valor_total" type="hidden" id="valor_total" size="15">
+        </font>
+        <input class='class02' name="valor_liquido_cliente" type="hidden" id="valor_liquido_cliente" size="15">
+        <font color="#0000FF">
+        <input name="valor_credito" type="hidden" id="valor_credito" value="">
+        <input name="valor_liberado" type="hidden" id="valor_liberado2" value="<? echo $valor_liberado; ?>">
+        <input class='class02' name="quant_parc" type="hidden" id="quant_parc" size="15">
+        </font>
+        <input class='class02' name="parcela" type="hidden" id="parcela2" size="15">
+        <strong><font color="#0000FF">
+        <input name="bco_operacao" type="hidden" id="bco_operacao" value="<? echo "$bco_operacao"; ?>">
+        </font></strong>
+        <input name="banco_pagto" type="hidden" id="banco_pagto" value="<? echo "$banco_pagto"; ?>">
+        <strong><font color="#0000FF">
+        <input class='class02' name="agencia" type="hidden" id="agencia" value="<? echo $agencia; ?>" size="15">
+        </font></strong>
+        <input class='class02' name="conta" type="hidden" id="conta2" value="<? echo $conta; ?>" size="15">
+        <strong><font color="#0000FF">
+        <input name="tipo_conta" type="hidden" id="tipo_conta" value="<? echo "$tipo_conta"; ?>">
+        </font></strong><strong><font color="#0000FF">
+        <input name="bco_quitacao" type="hidden" id="bco_quitacao" value="<? echo "$banco_pagto";
+			 ?>">
+        </font></strong>
+        <input class='class02' name="nome_ref1" type="hidden" id="nome_ref1" size="50">
+        <input class='class02' type="hidden" name="fone_ref1" id="fone_ref1">
+        <input name="grau_relacionamento1" type="hidden" id="grau_relacionamento1" value="<?  echo "$grau_relacionamento1"; ?>">
+        <input class='class02' name="nome_ref2" type="hidden" id="nome_ref2" size="50">
+        <input class='class02' type="hidden" name="fone_ref2" id="fone_ref2">
+        <input name="grau_relacionamento2" type="hidden" id="grau_relacionamento2" value="<?  echo "$grau_relacionamento2"; ?>">
+        <input name="parc1" type="hidden" class='class02' id="parc1" size="5">
+        <strong><font color="#0000FF">
+        <input name="banco1" type="hidden" id="banco1" value="<? echo "$banco_pagto"; ?>">
+        </font></strong>
+        <input name="vencto1" type="hidden" class='class02' id="vencto1" size="5">
+        <input name="parcelaspagas1" type="hidden" class='class02' id="parcelaspagas1" size="5">
+        <input name="taxajuros1" type="hidden" class='class02' id="taxajuros1" size="5">
+        <input name="numcontrato1" type="hidden" class='class02' id="numcontrato1" size="10">
+        <strong><font color="#0000FF">
+        <input name="bancodigitacao1" type="hidden" class='class02' id="bancodigitacao1" size="5" readonly="readonly">
+        </font></strong><strong><font color="#0000FF">
+        <input name="tipooperacao1" type="hidden" class='class02' id="tipooperacao1" size="5" readonly="readonly">
+        </font></strong>
+        <input name="parc2" type="hidden" class='class02' id="parc2" size="5">
+        <strong><font color="#0000FF">
+        <input name="banco2" type="hidden" id="banco2" value="<? echo "$banco_pagto"; ?>">
+        </font></strong>
+        <input name="vencto2" type="hidden" class='class02' id="vencto2" size="5">
+        <input name="parcelaspagas2" type="hidden" class='class02' id="parcelaspagas2" size="5">
+        <input name="taxajuros2" type="hidden" class='class02' id="taxajuros2" size="5">
+        <input name="numcontrato2" type="hidden" class='class02' id="numcontrato2" size="10">
+        <strong><font color="#0000FF">
+        <input name="bancodigitacao2" type="hidden" class='class02' id="bancodigitacao2" size="5" readonly="readonly">
+        </font></strong><strong><font color="#0000FF">
+        <input name="tipooperacao2" type="hidden" class='class02' id="tipooperacao2" size="5" readonly="readonly">
+        </font></strong>
+        <input name="parc3" type="hidden" class='class02' id="parc3" size="5">
+        <strong><font color="#0000FF">
+        <input name="banco3" type="hidden" id="banco3" value="<? echo "$banco_pagto"; ?>">
+        </font></strong>
+        <input name="vencto3" type="hidden" class='class02' id="vencto3" size="5">
+        <input name="parcelaspagas3" type="hidden" class='class02' id="parcelaspagas3" size="5">
+        <input name="taxajuros3" type="hidden" class='class02' id="taxajuros3" size="5">
+        <input name="numcontrato3" type="hidden" class='class02' id="numcontrato3" size="10">
+        <strong><font color="#0000FF">
+        <input name="bancodigitacao3" type="hidden" class='class02' id="bancodigitacao3" size="5" readonly="readonly">
+        </font></strong><strong><font color="#0000FF">
+        <input name="tipooperacao3" type="hidden" class='class02' id="tipooperacao3" size="5" readonly="readonly">
+        </font></strong>
+        <input name="parc4" type="hidden" class='class02' id="parc4" size="5">
+        <strong><font color="#0000FF">
+        <input name="banco4" type="hidden" id="banco4" value="<? echo "$banco_pagto"; ?>">
+        </font></strong>
+        <input name="vencto4" type="hidden" class='class02' id="vencto4" size="5">
+        <input name="parcelaspagas4" type="hidden" class='class02' id="parcelaspagas4" size="5">
+        <input name="taxajuros4" type="hidden" class='class02' id="taxajuros4" size="5">
+        <input name="numcontrato4" type="hidden" class='class02' id="numcontrato4" size="10">
+        <strong><font color="#0000FF">
+        <input name="bancodigitacao4" type="hidden" class='class02' id="bancodigitacao4" size="5" readonly="readonly">
+        </font></strong><strong><font color="#0000FF">
+        <input name="tipooperacao4" type="hidden" class='class02' id="tipooperacao4" size="5" readonly="readonly">
+        </font></strong>
+        <input name="parc5" type="hidden" class='class02' id="parc5" size="5">
+        <strong><font color="#0000FF">
+        <input name="banco5" type="hidden" id="banco5" value="<? echo "$banco_pagto"; ?>">
+        </font></strong>
+        <input name="vencto5" type="hidden" class='class02' id="vencto5" size="5">
+        <input name="parcelaspagas5" type="hidden" class='class02' id="parcelaspagas5" size="5">
+        <input name="taxajuros5" type="hidden" class='class02' id="taxajuros5" size="5">
+        <input name="numcontrato5" type="hidden" class='class02' id="numcontrato5" size="10">
+        <strong><font color="#0000FF">
+        <input name="bancodigitacao5" type="hidden" class='class02' id="bancodigitacao5" size="5" readonly="readonly">
+        </font></strong><strong><font color="#0000FF">
+        <input name="tipooperacao5" type="hidden" class='class02' id="tipooperacao5" size="5" readonly="readonly">
+        </font></strong>
+        <input name="parc6" type="hidden" class='class02' id="parc6" size="5">
+        <strong><font color="#0000FF">
+        <input name="banco6" type="hidden" id="banco6" value="<? echo "$banco_pagto"; ?>">
+        </font></strong>
+        <input name="vencto6" type="hidden" class='class02' id="vencto6" size="5">
+        <input name="parcelaspagas6" type="hidden" class='class02' id="parcelaspagas6" size="5">
+        <input name="taxajuros6" type="hidden" class='class02' id="taxajuros6" size="5">
+        <input name="numcontrato6" type="hidden" class='class02' id="numcontrato6" size="10">
+        <strong><font color="#0000FF">
+        <input name="bancodigitacao6" type="hidden" class='class02' id="bancodigitacao6" size="5" readonly="readonly">
+        </font></strong><strong><font color="#0000FF">
+        <input name="tipooperacao6" type="hidden" class='class02' id="tipooperacao6" size="5" readonly="readonly">
+        </font></strong>
+        <input name="parc7" type="hidden" class='class02' id="parc7" size="5">
+        <strong><font color="#0000FF">
+        <input name="banco7" type="hidden" id="banco7" value="<? echo "$banco_pagto"; ?>">
+        </font></strong>
+        <input name="vencto7" type="hidden" class='class02' id="vencto7" size="5">
+        <input name="parcelaspagas7" type="hidden" class='class02' id="parcelaspagas7" size="5">
+        <input name="taxajuros7" type="hidden" class='class02' id="taxajuros7" size="5">
+        <input name="numcontrato7" type="hidden" class='class02' id="numcontrato7" size="10">
+        <strong><font color="#0000FF">
+        <input name="bancodigitacao7" type="hidden" class='class02' id="bancodigitacao7" size="5" readonly="readonly">
+        </font></strong><strong><font color="#0000FF">
+        <input name="tipooperacao7" type="hidden" class='class02' id="tipooperacao7" size="5" readonly="readonly">
+        <input name="parc8" type="hidden" class='class02' id="parc8" size="5">
+        <input name="banco8" type="hidden" id="banco8" value="<? echo "$banco_pagto"; ?>">
+        <input name="vencto8" type="hidden" class='class02' id="vencto8" size="5">
+        <input name="parcelaspagas8" type="hidden" class='class02' id="parcelaspagas8" size="5">
+        <input name="taxajuros8" type="hidden" class='class02' id="taxajuros8" size="5">
+        <input name="numcontrato8" type="hidden" class='class02' id="numcontrato8" size="10">
+        <input name="bancodigitacao8" type="hidden" class='class02' id="bancodigitacao8" size="5" readonly="readonly">
+        <input name="tipooperacao8" type="hidden" class='class02' id="tipooperacao8" size="5" readonly="readonly">
+        <input name="parc9" type="hidden" class='class02' id="parc9" size="5">
+        <input name="banco9" type="hidden" id="banco9" value="<? echo "$banco_pagto"; ?>">
+        </font></strong>
+        <input name="vencto9" type="hidden" class='class02' id="vencto9" size="5">
+        <input name="parcelaspagas9" type="hidden" class='class02' id="parcelaspagas9" size="5">
+        <input name="taxajuros9" type="hidden" class='class02' id="taxajuros9" size="5">
+        <input name="numcontrato9" type="hidden" class='class02' id="numcontrato9" size="10">
+        <strong><font color="#0000FF">
+        <input name="bancodigitacao9" type="hidden" class='class02' id="bancodigitacao9" size="5" readonly="readonly">
+        </font></strong><strong><font color="#0000FF">
+        <input name="tipooperacao9" type="hidden" class='class02' id="tipooperacao9" size="5" readonly="readonly">
+        </font></strong>
+        <input name="parc10" type="hidden" class='class02' id="parc10" size="5">
+        <strong><font color="#0000FF">
+        <input name="banco10" type="hidden" id="banco10" value="<? echo "$banco_pagto"; ?>">
+        </font></strong>
+        <input name="vencto10" type="hidden" class='class02' id="vencto10" size="5">
+        <input name="parcelaspagas10" type="hidden" class='class02' id="parcelaspagas10" size="5">
+        <input name="taxajuros10" type="hidden" class='class02' id="taxajuros10" size="5">
+        <input name="numcontrato10" type="hidden" class='class02' id="numcontrato10" size="10">
+        <strong><font color="#0000FF">
+        <input name="bancodigitacao10" type="hidden" class='class02' id="bancodigitacao10" size="5" readonly="readonly">
+        </font></strong><strong><font color="#0000FF">
+        <input name="tipooperacao10" type="hidden" class='class02' id="tipooperacao10" size="5" readonly="readonly">
+        </font></strong><strong>
+        <input name="senha_servidor" type="hidden" class='class02' id="senha_servidor" size="5">
+        </strong>
+        <input name="email" type="hidden" class='class02' id="email" value="<? echo $email_cli; ?>" size="50">
+        <strong>
+        <input name="margememprestimo" type="hidden" class='class02' id="margememprestimo" size="5">
+        </strong><strong>
+        <input name="margememprestimo_parcela" type="hidden" class='class02' id="margememprestimo_parcela" size="5">
+        </strong><strong>
+        <input name="margememprestimo_valorliberado" type="hidden" class='class02' id="margememprestimo_valorliberado" size="5">
+        </strong><strong>
+        <input name="margememprestimo_bancodigitacao" type="hidden" class='class02' id="margememprestimo_bancodigitacao" size="5">
+        </strong><strong>
+        <input name="margemcartao" type="hidden" class='class02' id="margemcartao" size="5">
+        </strong><strong>
+        <input name="margemcartao_parcela" type="hidden" class='class02' id="margemcartao_parcela" size="5">
+        </strong><strong>
+        <input name="margemcartao_valorliberado" type="hidden" class='class02' id="margemcartao_valorliberado" size="5">
+        </strong><strong>
+        <input name="margemcartao_bancodigitacao" type="hidden" class='class02' id="margemcartao_bancodigitacao" size="5">
+        </strong><strong>
+        <input name="debitoemconta" type="hidden" class='class02' id="debitoemconta" size="5">
+        </strong><strong>
+        <input name="debitoemconta_parcela" type="hidden" class='class02' id="debitoemconta_parcela" size="5">
+        </strong><strong>
+        <input name="debitoemconta_valorliberado" type="hidden" class='class02' id="debitoemconta_valorliberado" size="5">
+        </strong><strong>
+        <input name="debitoemconta_bancodigitacao" type="hidden" class='class02' id="debitoemconta_bancodigitacao" size="5">
+        </strong><strong>
+        <input name="creditocarne" type="hidden" class='class02' id="creditocarne" size="5">
+        </strong><strong>
+        <input name="creditocarne_parcela" type="hidden" class='class02' id="creditocarne_parcela" size="5">
+        </strong><strong>
+        <input name="creditocarne_valorliberado" type="hidden" class='class02' id="creditocarne_valorliberado" size="5">
+        </strong><strong>
+        <input name="creditocarne_bancodigitacao" type="hidden" class='class02' id="creditocarne_bancodigitacao" size="5">
+        </strong><strong>
+        <input name="creditocontaenergia" type="hidden" class='class02' id="creditocontaenergia" size="5">
+        </strong><strong>
+        <input name="creditocontaenergia_parcela" type="hidden" class='class02' id="creditocontaenergia_parcela" size="5">
+        </strong><strong>
+        <input name="creditocontaenergia_valorliberado" type="hidden" class='class02' id="creditocontaenergia_valorliberado" size="5">
+        </strong><strong>
+        <input name="creditocontaenergia_bancodigitacao" type="hidden" class='class02' id="creditocontaenergia_bancodigitacao" size="5">
+        </strong>
+        <input type="hidden" name="obs" id="obs" <? echo $obs_cli; ?>>
+        <strong><font color="#0000FF">
+        <input name="operador" type="hidden" id="operador3" value="<? echo $nome_op; ?>">
+        <input name="cel_operador" type="hidden" id="cel_operador" value="<? echo $celular; ?>">
+        <input name="email_operador" type="hidden" id="email_operador" value="<? echo $email; ?>">
+        <input name="estabelecimento" type="hidden" id="estabelecimento" value="<? echo $estabelecimento; ?>">
+        <input name="cidade_estabelecimento" type="hidden" id="cidade_estabelecimento" value="<? echo $cidade_estabelecimento; ?>">
+        <input name="tel_estabelecimento" type="hidden" id="tel_estabelecimento" value="<? echo $tel_estabelecimento; ?>">
+        <input name="email_estabelecimento" type="hidden" id="email_estabelecimento" value="<? echo $email_estabelecimento; ?>">
+        <input name="operador_alterou" type="hidden" id="operador_alterou">
+        <input name="cel_operador_alterou" type="hidden" id="cel_operador_alterou">
+        <input name="email_operador_alterou" type="hidden" id="email_operador_alterou">
+        <input name="estabelecimento_alterou" type="hidden" id="estabelecimento_alterou">
+        <input name="cidade_estabelecimento_alterou" type="hidden" id="cidade_estabelecimento_alterou">
+        <input name="tel_estabelecimento_alterou" type="hidden" id="tel_estabelecimento_alterou">
+        <input name="email_estabelecimento_alterou" type="hidden" id="email_estabelecimento_alterou">
+        <input name="recebido" type="hidden" id="recebido" value="<? echo "NAO"; ?>">
+        <input name="resposta1" type="hidden" id="resposta1" value="<? echo "NAO"; ?>">
+        <input name="resposta2" type="hidden" id="resposta2" value="<? echo "NAO"; ?>">
+        <input name="resposta3" type="hidden" id="resposta3" value="<? echo "NAO"; ?>">
+        <input name="termo" type="hidden" id="termo" value="<? echo $termo;  ?>">
+        </font></strong> <strong>
+        <input name="termo_de_responsabilidade" type="hidden" id="termo_de_responsabilidade" value="<? echo $termo_de_responsabilidade;  ?>">
+        </strong>
+<select class='class02' name="tipo_contrato_para_gerar_proposta_filha" id="tipo_contrato_para_gerar_proposta_filha">
+  <?
+$sql = "select * from tipo_contrato where tipo_contrato <> 'COMPRA' and status = 'Ativo' and proposta_automatica = 'SIM' order by tipo_contrato asc";
+    $result = mysql_query($sql);
+    while($x=mysql_fetch_array($result)){
+  echo "<option>".$x['tipo_contrato']."</option>";
+    }
+?>
+</select>
+<input class='class01' type="submit" name="Submit" value="Gerar proposta filha">
+      </form></td>
+    </tr>
+  </tbody>
+</table>
 <p>&nbsp;</p>
 
 </body>
