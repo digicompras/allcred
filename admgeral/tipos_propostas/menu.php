@@ -90,17 +90,17 @@ $senha = $_SESSION['senha'];
 
 
 if($comando=="inserir"){
+	
+	if(empty($tipo_proposta)){
+		
+	}
+	else{
 
 $comando = "insert into tipos_propostas(tipo_proposta,setor,status) values('$tipo_proposta','$setor','$status')";
-
-
-
 mysql_query($comando,$conexao) or die("Erro ao gravar tipo de proposta");
-
-
 echo "Tipo de proposta inserido com sucesso<br>";
 
-
+	}
 
 }
 
