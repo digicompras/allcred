@@ -339,6 +339,8 @@ $status_fisico = $linha[120];
 $num_bordero = $linha[121];
 	
 $data_alteracao_status_fisico = $linha[123];
+	
+$tipo_contrato = $linha[136];
 
 $termo_de_responsabilidade = $linha[149];
 
@@ -708,8 +710,9 @@ $email_estabelecimento_alterou = $linha[27];
 
       <td>Tipo da proposta </td>
 
-      <td colspan="3"><strong><font ><? echo $tipo_proposta; ?></font></strong></td>
-
+      <td><strong><font ><? echo $tipo_proposta; ?></font></strong></td>
+      <td>Tipo de contrato</td>
+      <td><strong><font color="#0000FF"><? echo $tipo_contrato; ?></font></strong></td>
       <td>Data Limite para entrega do f&iacute;sico</td>
 
       <td><strong><font ><? echo $prazo_final_formatado; ?></font></strong></td>
@@ -762,8 +765,8 @@ $email_estabelecimento_alterou = $linha[27];
 
       <td>Nome</td>
 
-      <td width="10%"><strong><font ><? echo $nome; ?></font></strong></td>
-      <td width="6%">Nome Social</td>
+      <td width="12%"><strong><font ><? echo $nome; ?></font></strong></td>
+      <td width="7%">Nome Social</td>
       <td><strong><font ><? echo $nomesocial; ?></font></strong></td>
 
       <td>CPF</td>
@@ -954,7 +957,7 @@ $email_estabelecimento_alterou = $linha[27];
 
       <td colspan="2"><strong><font ><? echo $agencia; ?></font></strong></td>
 
-      <td width="19%"><div align="left">N&ordm; Conta <strong><font ><? echo $conta; ?></font></strong><strong><font ><? echo " - $tipo_conta"; ?></font></strong></div></td>
+      <td width="16%"><div align="left">N&ordm; Conta <strong><font ><? echo $conta; ?></font></strong><strong><font ><? echo " - $tipo_conta"; ?></font></strong></div></td>
 
       <td>Tipo de pagto do Benef&iacute;cio</td>
 

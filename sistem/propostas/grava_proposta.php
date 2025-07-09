@@ -935,6 +935,7 @@ $senha = $_SESSION['senha'];
 
 ?>
         <strong><font color="#0000FF">
+        <input name="num_proposta" type="hidden" id="num_proposta" value="<? echo $num_proposta; ?>">
         <input name="tipovenda" type="hidden" id="tipovenda" value="<? echo $tipovenda; ?>">
         </font></strong><strong><font color="#0000FF">
         <input name="tipo" type="hidden" id="tipo" value="<? echo $tipo; ?>">

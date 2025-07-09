@@ -11,6 +11,9 @@ require '../../conect/conect.php';
 
 
 // dados da proposta
+
+
+$num_proposta = $_POST['num_proposta'];
 	
 $tipovenda = $_POST['tipovenda'];
 
